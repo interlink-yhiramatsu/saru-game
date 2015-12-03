@@ -15,6 +15,9 @@
 		 */
 		public function Saru()
 		{
+			
+//			てすとおおおおおお
+			
 			pre = new Pre();
 			stage.addChild(pre);
 			pre.addEventListener(Const.PRE_START_BT_CLICK, onPreStartHandler);
