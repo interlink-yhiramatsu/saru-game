@@ -2,7 +2,7 @@ package
 {
 	import flash.display.MovieClip;
 	
-	public class Tama extends MovieClip
+	public class Tama extends MovieClip implements IGameItem
 	{
 		
 		private const SPEED:Number=10;
@@ -35,6 +35,15 @@ package
 		{
 			this.x+=_speedX;
 			this.y+=_speedY;	
+		}
+		
+		public function outTest():Boolean
+		{
+			var bool:Boolean=false;
+			
+			//実装
+			
+			return bool;
 		}
 	}
 }
