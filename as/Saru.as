@@ -16,7 +16,6 @@
 		public function Saru()
 		{
 			
-//			てすとおおおおおお
 			
 			pre = new Pre();
 			stage.addChild(pre);
