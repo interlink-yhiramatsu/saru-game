@@ -45,12 +45,12 @@
 			
 			//ターゲットはここ
 			this.addEventListener(Event.ENTER_FRAME, _step);
-			this.addEventListener(MouseEvent.CLICK,onClick);
+			this.addEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
 			
 	
 		}
 		
-		private function onClick(e:MouseEvent):void
+		private function _mouseDownHandler(e:MouseEvent):void
 		{
 			var tama:Tama=new Tama(this._hero.x,this._hero.y);
 			this.addChild(tama);
