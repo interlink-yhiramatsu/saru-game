@@ -13,19 +13,15 @@
 		//インスタンス系
 		private var _hero:Hero;
 		
+		//
+		private var tamaList:Array=[];
+		
 		
 		/**
 		 * コンストラクタ
 		 */
 		public function Main() {
-//			if(stage)
-//			{
-//				onStage();
-//			}else
-//			{
-//				this.addEventListener(Event.ADDED_TO_STAGE,onStage);
-//			}
-			
+
 			init();
 		}
 		
@@ -33,16 +29,7 @@
 		{
 			this.visible = false;
 		}
-		
-		private function onStage(e:Event=null):void
-		{
-//			this.removeEventListener(Event.ADDED_TO_STAGE,onStage);
-//			var btStart:MovieClip = this["bt_start"]; //ボタンのインスタンス
-//			btStart.x = 0;
-//			btStart.y = 0;
-		}
-		
-		
+
 		/**
 		 * ゲーム開始
 		 */
@@ -50,22 +37,43 @@
 		{
 			this.visible = true;
 			this._hero = new Hero();
-			this.addChild(_hero);
+			this._hero.x=Const.WIDTH/2;
+			this._hero.y=Const.HEIGHT/2;
 			
-//			this.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMoveHandler);
-			this.stage.addEventListener(Event.ENTER_FRAME, _step);
+			this.addChild(_hero);
+
+			
+			//ターゲットはここ
+			this.addEventListener(Event.ENTER_FRAME, _step);
+			this.addEventListener(MouseEvent.CLICK,onClick);
+			
+	
 		}
 		
-		private function onMouseMoveHandler(e:MouseEvent):void
+		private function onClick(e:MouseEvent):void
 		{
-			this._hero.x = stage.mouseX;
-			this._hero.y = stage.mouseY;
+			var tama:Tama=new Tama(this._hero.x,this._hero.y);
+			this.addChild(tama);
+			tamaList.push(tama);
+			
 		}
+		
+//		private function onMouseMoveHandler(e:MouseEvent):void
+//		{
+//			this._hero.x = stage.mouseX;
+//			this._hero.y = stage.mouseY;
+//		}
 		
 		private function _step(e:Event):void
 		{
-			this._hero.x = stage.mouseX;
-			this._hero.y = stage.mouseY;
+			this._hero.step(stage.mouseX,stage.mouseY);
+
+			var tama:Tama;
+			for(var i:int=0;i<tamaList.length;i++)
+			{
+				tama=tamaList[i];
+				tama.step();
+			}
 		}
 		
 		/**
