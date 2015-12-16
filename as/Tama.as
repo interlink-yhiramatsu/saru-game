@@ -37,13 +37,24 @@ package
 			this.y+=_speedY;	
 		}
 		
-		public function outTest():Boolean
+		public function outTest(w:Number,h:Number):Boolean
 		{
+			//はみ出ている場合はtrue
 			var bool:Boolean=false;
+			
+			if(this.x<0||this.x>w||this.y<0||this.y>h)
+			{
+				bool=true;
+			}
 			
 			//実装
 			
 			return bool;
+		}
+		
+		public function destroy():void
+		{
+			MovieClip(this.parent).removeChild(this);
 		}
 	}
 }

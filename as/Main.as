@@ -70,24 +70,45 @@
 		
 		private function _step(e:Event):void
 		{
+	
+			//猿の移動
 			this._hero.step(stage.mouseX,stage.mouseY);
-
+			
+			//弾丸の移動
 			var tama:Tama;
 			for(var i:int=0;i<_tamaList.length;i++)
 			{
 				tama=_tamaList[i];
 				tama.step();
 			}
+			
+			
+			//弾丸の画面外判定
+			_tamaList=_destroyIGameItems(_tamaList);
+			
+			
 		}
 		
 		
-		private function _arrayDelete(oldArray:Array):Array
+		private function _destroyIGameItems(oldArray:Array):Array
 		{
-			var newArray:Array;
+			var newArray:Array=[];
+			var tama:IGameItem;
 			
-			//実装
+			for(var i:int=0;i<oldArray.length;i++)
+			{
+				tama=oldArray[i];
+				if(tama.outTest(Const.WIDTH,Const.HEIGHT))
+				{
+					//はみ出ている場合はtrue
+					tama.destroy();
+				}else
+				{
+					newArray.push(tama);
+				}
+			}
 			
-			
+		
 			return newArray
 		}
 		
