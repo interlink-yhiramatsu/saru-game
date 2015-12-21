@@ -16,7 +16,6 @@
 		public function Saru()
 		{
 			
-			
 			pre = new Pre();
 			stage.addChild(pre);
 			pre.addEventListener(Const.PRE_START_BT_CLICK, onPreStartHandler);
@@ -47,10 +46,12 @@
 		
 		private function onRuleStartHandler(e:Event):void
 		{
+			
 		}
 		
 		private function onResultReplayHandler(e:Event):void
 		{
+			
 		}
 		
 	}

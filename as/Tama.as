@@ -21,7 +21,7 @@ package
 			this.x=myX;
 			this.y=myY;
 			
-			if(Const.getRandom(2)==0)
+			if(Utils.getRandom(2)==0)
 			{
 				_speedX=SPEED;
 			}else

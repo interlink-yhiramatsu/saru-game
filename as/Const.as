@@ -17,9 +17,6 @@ package
 		public static const RESULT_REPLAY:String = "resultReplay";
 		
 		
-		public static function getRandom(val:uint):Number
-		{
-			return Math.floor(Math.random()*val);
-		}
+		
 	}
 }

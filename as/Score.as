@@ -39,6 +39,7 @@ package
 			return _hitNum;
 		}
 		
+				
 		public function set hitNum(value:Number):void
 		{
 			_hitNum = value;
