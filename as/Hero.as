@@ -1,10 +1,12 @@
-package
+﻿package
 {
 	import flash.display.MovieClip;
-
+	
 	public class Hero extends MovieClip
 	{
 		private const TICK:uint=4;
+		
+		//これがコンポジション
 		private var visual:MovieClip;
 		
 		public function Hero()
@@ -17,16 +19,27 @@ package
 		}
 		
 		
-//		public function shot():void
-//		{
-//				trace("aaaa");
-//		}
+		//		public function shot():void
+		//		{
+		//				trace("aaaa");
+		//		}
 		
-		public function step(myX:Number,myY:Number):void
+		public function step():void
 		{
-			this.x+=(myX-this.x)/TICK;
-			this.y+=(myY-this.y)/TICK;
+			this.x+=(stage.mouseX-this.x)/TICK;
+			this.y+=(stage.mouseY-this.y)/TICK;
 		}
+		
+		public function destroy():void
+		{
+			
+		}
+		
+		public function outTest(w:Number,h:Number):Boolean
+		{
+			return false;
+		}
+		
 		
 		
 	}

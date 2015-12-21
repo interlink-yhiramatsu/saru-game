@@ -18,11 +18,13 @@
 		//インスタンス系
 		private var _hero:Hero;
 		
-		
+		/*注意！！　配列は作り替えないよ*/
 		//敵の配列
 		private var _enemyList:Array=[];
-		//弾丸の配列
-		private var _tamaList:Array=[];
+		//自分の弾丸の配列
+		private var _heroTamaList:Array=[];
+		//敵の弾丸の配列
+		private var _enemyTamaList:Array=[];
 		
 		
 		/**
@@ -67,11 +69,24 @@
 		
 		private function _mouseDownHandler(e:MouseEvent):void
 		{
-			var tama:Tama=new Tama(this._hero.x,this._hero.y);
-			this.addChild(tama);
-			_tamaList.push(tama);
-			
+			_heroShot(this._hero.x,this._hero.y);
 		}
+		
+		private function _heroShot(myX:Number,myY:Number):void
+		{
+			var heroTama:HeroTama=new HeroTama(myX,myY);
+			this.addChild(heroTama);
+			_heroTamaList.push(heroTama);
+		}
+		
+		//敵が弾丸をはく
+		private function _enemyShot(myX:Number,myY:Number):void
+		{
+			var enemyTama:EnemyTama=new EnemyTama(myX,myY);
+			this.addChild(enemyTama);
+			_enemyTamaList.push(enemyTama);
+		}
+		
 		
 		private function _timerHandler(e:TimerEvent):void
 		{
@@ -83,40 +98,43 @@
 		{
 			
 			//猿の移動
-			this._hero.step(stage.mouseX,stage.mouseY);
+			this._hero.step();
 			
-			//弾丸の移動
-			var tama:Tama;
-			for(var i:int=0;i<_tamaList.length;i++)
-			{
-				tama=_tamaList[i];
-				tama.step();
-			}
+			//自分の弾丸の移動
+			_heroTamaList.forEach(__step);
+			//敵の弾丸の移動
+			_enemyTamaList.forEach(__step);
+			//羊の移動
+			_enemyList.forEach(__step);
 			
 			//羊の移動
-			var enemy:Enemy;
-			for(var j:int=0;j<_enemyList.length;j++)
-			{
-				enemy=_enemyList[j];
-				enemy.step();
-				
+//			var enemy:Enemy;
+//			for(var j:int=0;j<_enemyList.length;j++)
+//			{
+//				enemy=_enemyList[j];
+//				enemy.step();
+//				
 				//羊と弾丸の衝突判定
-				for(var l:int=0;l<_tamaList.length;l++)
-				{
-					tama=_tamaList[i];
-					tama.step();
-				}
-			}
+//				for(var l:int=0;l<_tamaList.length;l++)
+//				{
+//					tama=_tamaList[i];
+//					tama.step();
+//				}
+		//	}
 			
 			
 			//弾丸の画面外判定
-			_tamaList=_destroyIGameItems(_tamaList);
+			
+			//_tamaList=_destroyIGameItems(_tamaList);
 			
 			//羊の画面外判定
-			_enemyList=_destroyIGameItems(_enemyList);
-			
-			
-			
+			//_enemyList=_destroyIGameItems(_enemyList);
+
+		}
+		
+		private function __step(item:IStepItem,index:int, array:Array):void
+		{
+			item.step();
 		}
 		
 		
@@ -128,38 +146,27 @@
 		}
 		
 		
-		private function _destroyIGameItems(oldArray:Array,type:String):Array
+		private function _destroyIGameItems(oldArray:Array):Array
 		{
 			var newArray:Array=[];
-			var iGameItem:IGameItem;
-			
-			for(var i:int=0;i<oldArray.length;i++)
-			{
-				iGameItem=oldArray[i];
-				
-				if(type=="out")
-				{
-					if(iGameItem.outTest(Const.WIDTH,Const.HEIGHT))
-					{
-						//はみ出ている場合はtrue
-						iGameItem.destroy();
-					}else
-					{
-						newArray.push(iGameItem);
-					}
-				}else if(type=="hit")
-				{
-					if(iGameItem.outTest(Const.WIDTH,Const.HEIGHT))
-					{
-						//はみ出ている場合はtrue
-						iGameItem.destroy();
-					}else
-					{
-						newArray.push(iGameItem);
-					}
-				}
-			}
-			
+//			var iGameItem:IGameItem;
+//			
+//			for(var i:int=0;i<oldArray.length;i++)
+//			{
+//				iGameItem=oldArray[i];
+//				
+//				
+//				if(iGameItem.outTest(Const.WIDTH,Const.HEIGHT))
+//				{
+//					//はみ出ている場合はtrue
+//					iGameItem.destroy();
+//				}else
+//				{
+//					newArray.push(iGameItem);
+//				}
+//				
+//			}
+//			
 			return newArray
 		}
 		

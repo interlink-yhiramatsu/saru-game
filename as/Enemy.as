@@ -2,9 +2,10 @@ package
 {
 	import flash.display.MovieClip;
 	
-	public class Enemy extends MovieClip implements IGameItem
+	public class Enemy extends MovieClip implements IStepItem
 	{
 		
+		//これがコンポジション
 		private var visual:MovieClip;
 		
 		
@@ -36,6 +37,11 @@ package
 			//実装
 			
 			return bool;
+		}
+		
+		public function checkStatus():void
+		{
+			
 		}
 		
 		public function destroy():void
