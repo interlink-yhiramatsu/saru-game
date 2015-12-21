@@ -4,7 +4,6 @@ package
 	{
 		
 		function step():void;
-		function checkStatus():void;
 		
 	}
 }

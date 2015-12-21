@@ -97,9 +97,8 @@
 		private function _step(e:Event):void
 		{
 			
-			//猿の移動
+			//自分の移動
 			this._hero.step();
-			
 			//自分の弾丸の移動
 			_heroTamaList.forEach(__step);
 			//敵の弾丸の移動

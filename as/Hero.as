@@ -2,7 +2,7 @@
 {
 	import flash.display.MovieClip;
 	
-	public class Hero extends MovieClip
+	public class Hero extends GameItemSuper
 	{
 		private const TICK:uint=4;
 		
@@ -11,6 +11,7 @@
 		
 		public function Hero()
 		{
+			_isActive=true;
 			
 			visual=this["heroVisual"];
 			
@@ -24,20 +25,10 @@
 		//				trace("aaaa");
 		//		}
 		
-		public function step():void
+		override protected function _step():void
 		{
 			this.x+=(stage.mouseX-this.x)/TICK;
 			this.y+=(stage.mouseY-this.y)/TICK;
-		}
-		
-		public function destroy():void
-		{
-			
-		}
-		
-		public function outTest(w:Number,h:Number):Boolean
-		{
-			return false;
 		}
 		
 		
