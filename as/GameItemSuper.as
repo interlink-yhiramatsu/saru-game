@@ -10,8 +10,16 @@ package
 		
 		public function GameItemSuper()
 		{
-			super();
+			init();
+			this.sleep();
 		}
+		
+		public function get isActive():Boolean
+		{
+			return _isActive;
+		}
+
+		protected function init():void{}
 		
 		public function get radius():Number
 		{
@@ -31,14 +39,18 @@ package
 			//サブクラスで、実際の挙動は実装
 		}
 		
-		public function activate() :void
+		public function activate(myX:Number,myY:Number) :void
 		{
+			this.x=myX;
+			this.y=myY;
 			_isActive=true;
 		}
 		
 		public function sleep() :void
 		{
-			_isActive=false;
+			this.x=-500;
+			this.y=-500;
+			this._isActive=false;
 		}
 		
 		public function outTest(w:Number,h:Number):Boolean
@@ -56,9 +68,7 @@ package
 		public function destroy():void
 		{
 			//MovieClip(this.parent).removeChild(this);
-			this.x=-500;
-			this.y=-500;
-			this._isActive=false;
+			
 		}
 	}
 }

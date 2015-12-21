@@ -2,9 +2,9 @@ package
 {
 	public class HeroTama extends TamaSuper
 	{
-		public function HeroTama(myX:Number, myY:Number)
+		public function HeroTama()
 		{
-			super(myX, myY);
+			super();
 		}
 		
 		override protected function init():void
@@ -13,6 +13,15 @@ package
 			visual.x -= visual.width/2;
 			visual.y -= visual.height/2;
 			this.addChild(visual);
+			
+			
+		}
+		
+		override public function activate(myX:Number,myY:Number) :void
+		{
+			this.x=myX;
+			this.y=myY;
+			_isActive=true;
 			
 			if(Utils.getRandom(2)==0)
 			{

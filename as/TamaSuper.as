@@ -11,15 +11,12 @@ package
 		
 		protected var visual:MovieClip;
 		
-		public function TamaSuper(myX:Number,myY:Number)
+		public function TamaSuper()
 		{
-			_isActive=true;
-			this.x=myX;
-			this.y=myY;
-			init();
+			super();
 		}
 		
-		protected function init():void{}
+		
 		
 		override protected function _step():void
 		{
