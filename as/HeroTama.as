@@ -1,5 +1,7 @@
 package
 {
+	import flash.events.Event;
+
 	public class HeroTama extends TamaSuper
 	{
 		public function HeroTama()
@@ -13,9 +15,22 @@ package
 			visual.x -= visual.width/2;
 			visual.y -= visual.height/2;
 			this.addChild(visual);
-			
+			visual.addEventListener(Const.HIT_ANIM_END,onReset);
 			
 		}
+		
+		private function onReset(e:Event):void
+		{
+			visual.gotoAndStop("ldef");
+			this.sleep();
+		}
+		
+		override protected function _hit():void
+		{
+			visual.gotoAndPlay("lhit");
+		}
+		
+		
 		
 		override public function activate(myX:Number,myY:Number) :void
 		{
@@ -28,8 +43,11 @@ package
 				_speedX=_mySpeed;
 			}else
 			{
-				_speedX=-_mySpeed;
+				//_speedX=-_mySpeed;
+				_speedX=_mySpeed;
 			}
 		}
+		
+		
 	}
 }

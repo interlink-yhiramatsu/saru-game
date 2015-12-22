@@ -4,6 +4,7 @@ package
 	
 	public class GameItemSuper extends MovieClip implements IStepItem
 	{
+		protected var visual:MovieClip;
 		//待機状態かどうか
 		protected var _isActive:Boolean=false;
 		protected var _radius:Number=10;
@@ -46,6 +47,17 @@ package
 			_isActive=true;
 		}
 		
+		public function hit() :void
+		{
+			this._isActive=false;
+			_hit();
+		}
+		
+		protected function _hit():void
+		{
+			//サブクラスで、実際の挙動は実装
+		}
+		
 		public function sleep() :void
 		{
 			this.x=-500;
@@ -65,10 +77,15 @@ package
 			return bool;
 		}
 		
+		public function reset():void
+		{
+
+		}
+		
 		public function destroy():void
 		{
+			//実装しなくてもいい
 			//MovieClip(this.parent).removeChild(this);
-			
 		}
 	}
 }

@@ -63,12 +63,12 @@
 			}
 			
 			
-//			for(var j:int=0;j<MAX_ENEMY_TAMA;j++)
-//			{
-//				var enemyTama:EnemyTama=new EnemyTama();
-//				this.addChild(enemyTama);
-//				_enemyTamaList.push(enemyTama);
-//			}
+			//			for(var j:int=0;j<MAX_ENEMY_TAMA;j++)
+			//			{
+			//				var enemyTama:EnemyTama=new EnemyTama();
+			//				this.addChild(enemyTama);
+			//				_enemyTamaList.push(enemyTama);
+			//			}
 			
 			
 		}
@@ -115,7 +115,7 @@
 					heroTama.activate(myX,myY);
 					break;
 				}
-	
+				
 			}
 		}
 		
@@ -127,14 +127,14 @@
 				var enemy:Enemy=_enemyList[i];
 				if(enemy.isActive==false)
 				{
-					enemy.activate(Utils.getRandom(Const.WIDTH),Utils.getRandom(Const.HEIGHT));
+					enemy.activate(Const.WIDTH,Utils.getRandom(Const.HEIGHT));
 					break;
 				}
 				
 			}
 		}
 		
-
+		
 		
 		private function _timerHandler(e:TimerEvent):void
 		{
@@ -145,6 +145,8 @@
 		private function _step(e:Event):void
 		{
 			
+			/*最初にまとめて移動*/
+			
 			//自分の移動
 			this._hero.step();
 			//自分の弾丸の移動
@@ -152,14 +154,46 @@
 			//羊の移動
 			_enemyList.forEach(__step);
 			
-			//敵の弾丸の移動　未実装！！
-			//_enemyTamaList.forEach(__step);
+			/*まとめて画面外判定*/
 			
-			
-		
 			//弾丸の画面外判定
 			_heroTamaList.forEach(__outTest);
-		
+			//敵の画面外判定
+			_enemyList.forEach(__outTest);
+			
+			
+			/*衝突判定*/
+			
+			//敵と自分の弾丸の判定&敵と自分の衝突判定
+			
+			var currentEnemy:Enemy;
+			var currentHeroTama:HeroTama;
+			
+			for(var i:int=0;i<MAX_ENEMY;i++)
+			{
+				currentEnemy=_enemyList[i];
+				
+				if(_hitTest(currentEnemy,this._hero))
+				{
+					//trace("自分にあたった");
+				}
+				
+				for(var j:int=0;j<MAX_HERO_TAMA;j++)
+				{
+					currentHeroTama=_heroTamaList[j];
+					
+					if(_hitTest(currentEnemy,currentHeroTama))
+					{
+						
+						if(currentEnemy.isActive==true&&currentHeroTama.isActive==true)
+						{
+							//trace("敵に自分の弾丸があたった");
+							currentEnemy.hit();
+							currentHeroTama.hit();
+						}
+					}
+				}
+			}
 		}
 		
 		private function __step(item:IStepItem,index:int, array:Array):void

@@ -16,6 +16,8 @@ package
 		public static const MAIN_END:String = "mainEnd";
 		public static const RESULT_REPLAY:String = "resultReplay";
 		
+		public static const HIT_ANIM_END:String = "hitAnimEnd";
+		
 		
 		
 	}

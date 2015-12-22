@@ -6,8 +6,7 @@
 	{
 		private const TICK:uint=4;
 		
-		//これがコンポジション
-		private var visual:MovieClip;
+		
 		
 		public function Hero()
 		{
