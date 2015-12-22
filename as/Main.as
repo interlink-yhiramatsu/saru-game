@@ -7,7 +7,8 @@
 	import flash.utils.Timer;
 	
 	
-	public class Main extends MovieClip {
+	public class Main extends MovieClip implements IScene
+	{
 		
 		//上限
 		private const MAX_ENEMY:int=30;
@@ -222,7 +223,7 @@
 		
 		
 		
-		private function _hitTest(objA:MovieClip, objB:MovieClip)
+		private function _hitTest(objA:MovieClip, objB:MovieClip):Boolean
 		{
 			var bool:Boolean;
 			var val1:Number = (objA.x - objB.x) * (objA.x - objB.x) + (objA.y - objB.y) * (objA.y - objB.y);

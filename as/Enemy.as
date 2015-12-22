@@ -45,6 +45,12 @@ package
 			{
 				this.x+=(_terminalX-this.x)/15;
 				this.y+=(_terminalY-this.y)/15;
+				
+				if(Math.abs(this.x-_terminalX)<10&&Math.abs(this.y-_terminalY)<10)
+				{
+					_terminalX=Utils.getRandom(Const.WIDTH);
+					_terminalY=Utils.getRandom(Const.HEIGHT);
+				}
 			}
 			
 		}

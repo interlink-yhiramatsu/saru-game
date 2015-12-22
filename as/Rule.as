@@ -2,7 +2,7 @@ package
 {
 	import flash.display.MovieClip;
 	
-	public class Rule extends MovieClip
+	public class Rule extends MovieClip implements IScene
 	{
 		
 		/**
@@ -10,6 +10,16 @@ package
 		 */
 		public function Rule()
 		{
+		}
+		
+		public function start():void
+		{
+			
+		}
+		
+		public function end():void
+		{
+			
 		}
 		
 		

@@ -43,8 +43,7 @@ package
 				_speedX=_mySpeed;
 			}else
 			{
-				//_speedX=-_mySpeed;
-				_speedX=_mySpeed;
+				_speedX=-_mySpeed;
 			}
 		}
 		

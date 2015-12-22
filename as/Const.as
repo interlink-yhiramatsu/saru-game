@@ -3,7 +3,7 @@ package
 	public class Const
 	{
 		
-		public static const VERSION:String="0.5";
+		public static const VERSION:String="0.8";
 		public static const AUTHOR:String="higeguma";
 		
 		public static const WIDTH:Number=700;
