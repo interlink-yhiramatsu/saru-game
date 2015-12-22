@@ -21,7 +21,9 @@
 			pre.addEventListener(Const.PRE_START_BT_CLICK, onPreStartHandler);
 			
 			main = new Main();
-			stage.addChild(main);
+			main.x=148;
+			main.y=118;
+			stage.addChildAt(main,0);
 			main.addEventListener(Const.MAIN_END, onMainEndHandler);
 			
 			rule = new Rule();

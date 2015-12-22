@@ -11,7 +11,7 @@
 		
 		//上限
 		private const MAX_ENEMY:int=30;
-		private const MAX_HERO_TAMA:int=10;
+		private const MAX_HERO_TAMA:int=5;
 		//未実装
 		//private const MAX_ENEMY_TAMA:int=100;
 		
@@ -128,6 +128,16 @@
 				if(enemy.isActive==false)
 				{
 					enemy.activate(Const.WIDTH,Utils.getRandom(Const.HEIGHT));
+					
+					if(Utils.getRandom(2)==0)
+					{
+						enemy.setEnemyType(Enemy.TYPE_DEF);
+					}else
+					{
+						enemy.setEnemyType(Enemy.TYPE_KAMIKAZE,this._hero.x,this._hero.y);
+					}
+					
+					
 					break;
 				}
 				

@@ -5,11 +5,18 @@ package
 	
 	public class Enemy extends GameItemSuper
 	{
+		private var _speed:Number=10;
+		private var _terminalX:Number;
+		private var _terminalY:Number;
+		private var _enemyType:String;
 		
+		public static const TYPE_DEF:String="typeDef";
+		public static const TYPE_KAMIKAZE:String="typeKamikaze";
 		
 		public function Enemy()
 		{
 			super();
+		
 		}
 		
 		override protected function init():void
@@ -28,7 +35,18 @@ package
 		
 		override protected function _step():void
 		{
-			this.x+=-5;
+			if(_enemyType==TYPE_DEF)
+			{
+			
+				this.x-=_speed;
+				
+				
+			}else if(_enemyType==TYPE_KAMIKAZE)
+			{
+				this.x+=(_terminalX-this.x)/15;
+				this.y+=(_terminalY-this.y)/15;
+			}
+			
 		}
 		
 		override protected function _hit():void
@@ -36,10 +54,12 @@ package
 			visual.gotoAndPlay("lhit");
 		}
 		
-		override public function activate(myX:Number,myY:Number) :void
+		
+		override public function activate(myX:Number,myY:Number):void
 		{
 			this.x=myX;
 			this.y=myY;
+
 			_isActive=true;
 			
 			//			if(Utils.getRandom(2)==0)
@@ -51,7 +71,13 @@ package
 			//			}
 		}
 		
-		
+		public function setEnemyType(enemyType:String,terminalX:Number=0,terminalY:Number=0):void
+		{
+			
+			_enemyType=enemyType;
+			_terminalX=terminalX;
+			_terminalY=terminalY;
+		}
 		
 		
 		

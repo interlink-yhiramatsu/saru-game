@@ -26,8 +26,8 @@
 		
 		override protected function _step():void
 		{
-			this.x+=(stage.mouseX-this.x)/TICK;
-			this.y+=(stage.mouseY-this.y)/TICK;
+			this.x+=(this.parent.mouseX-this.x)/TICK;
+			this.y+=(this.parent.mouseY-this.y)/TICK;
 		}
 		
 		
