@@ -20,7 +20,12 @@
 		private var _score:Number = 0;
 		
 		//敵が出るタイマー
-		private var _timer:Timer;
+		private var _enemyProduceTimer:Timer;
+		
+		//時間カウント
+		private const TIME:int=300;
+		private var time:int=TIME;
+		
 		
 		//インスタンス系
 		private var _hero:Hero;
@@ -48,10 +53,18 @@
 			this.visible = false;
 			
 			//インスタンスを先に生成
+			
+			//自分の初期配置
+			this._hero = new Hero();
+			this._hero.x=Const.WIDTH/2;
+			this._hero.y=Const.HEIGHT/2;
+			this.addChildAt(_hero,1);
+			
+			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
 				var enemy:Enemy=new Enemy();
-				this.addChild(enemy);
+				this.addChildAt(enemy,1);
 				_enemyList.push(enemy);
 			}
 			
@@ -59,7 +72,7 @@
 			for(var k:int=0;k<MAX_HERO_TAMA;k++)
 			{
 				var heroTama:HeroTama=new HeroTama();
-				this.addChild(heroTama);
+				this.addChildAt(heroTama,1);
 				_heroTamaList.push(heroTama);
 			}
 			
@@ -82,18 +95,16 @@
 			//この画面を表示
 			this.visible = true;
 			
-			//自分の初期配置
-			this._hero = new Hero();
-			this._hero.x=Const.WIDTH/2;
-			this._hero.y=Const.HEIGHT/2;
-			this.addChild(_hero);
 			
 			
 			//タイマー追加
-			_timer=new Timer(1000);
-			_timer.addEventListener(TimerEvent.TIMER,_timerHandler);
-			_timer.start();
+			_enemyProduceTimer=new Timer(1000);
+			_enemyProduceTimer.addEventListener(TimerEvent.TIMER,_timerHandler);
+			_enemyProduceTimer.start();
 			
+			//時間制限
+			time=TIME;
+			this["time_bar"].scaleX=1;
 			
 			//イベント追加
 			this.addEventListener(Event.ENTER_FRAME, _step);
@@ -155,6 +166,17 @@
 		
 		private function _step(e:Event):void
 		{
+			
+			//時間制限
+			time--;
+			
+			if(time<=0)
+			{			
+				trace("タイムアップ");
+			}else
+			{
+				this["time_bar"].scaleX=(time/TIME);
+			}
 			
 			/*最初にまとめて移動*/
 			

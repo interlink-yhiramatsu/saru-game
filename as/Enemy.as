@@ -35,7 +35,8 @@ package
 		
 		override protected function _step():void
 		{
-			if(_enemyType==TYPE_DEF)
+			if(true)
+//			if(_enemyType==TYPE_DEF)
 			{
 			
 				this.x-=_speed;
@@ -65,6 +66,8 @@ package
 		{
 			this.x=myX;
 			this.y=myY;
+			
+			
 
 			_isActive=true;
 			
