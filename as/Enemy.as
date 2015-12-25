@@ -51,7 +51,6 @@ package
 			
 			if(_enemyType==TYPE_DEF)
 			{
-				
 				this.x+=_speed;
 				
 			}else if(_enemyType==TYPE_KAMIKAZE)
@@ -66,15 +65,7 @@ package
 				}
 				//回転
 				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
-//				rot=rot%360;
-//				this.rotation=rot;
-//				if(this.x>=_traceTarget.x)
-//				{
-//					this.scaleX=-1;
-//				}else
-//				{
-//					this.scaleX=1;
-//				}
+
 				
 			}else if(_enemyType==TYPE_MISSILE)
 			{
@@ -86,46 +77,29 @@ package
 				
 			}else if(_enemyType==TYPE_SHOURYU)
 			{
-				this.x-=_speed/2;
-				this.y-=_speed/2;
+				this.x+=5;
+				this.y+=-5;
+				
+				//回転
+				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
 				
 			}
 			
-			
 		}
 		
-		override protected function _hit():void
-		{
-			visual.gotoAndPlay("lhit");
-		}
-		
-		
-//		override public function activate(myX:Number,myY:Number):void
+//		override protected function _hit():void
 //		{
-//			this.x=myX-10;
-//			this.y=myY;
-//			_isActive=true;
-//			_isReady=false;
-//			
+//			visual.gotoAndPlay("lhit");
 //		}
-		
-		override public function activate(myX:Number,myY:Number,type:String="",terminalX:Number=0,terminalY:Number=0):void
+
+		public function spawn(myX:Number,myY:Number,type:String,terminalX:Number=0,terminalY:Number=0):void
 		{
-			super.activate(myX,myY,type,terminalX,terminalY);
+			super.activate(myX,myY);
 			_enemyType=type;
 			_terminalX=terminalX;
 			_terminalY=terminalY;
 
 		}
-		
-//		public function setEnemyType(enemyType:String,terminalX:Number=0,terminalY:Number=0):void
-//		{
-//			_enemyType=enemyType;
-//			_terminalX=terminalX;
-//			_terminalY=terminalY;
-//		}
-//		
-		
 		
 	}
 }

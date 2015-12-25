@@ -48,8 +48,8 @@ package
 		}
 		
 		
-		public function activate(myX:Number,myY:Number,type:String="",terminalX:Number=0,terminalY:Number=0):void
-			//public function activate(myX:Number,myY:Number) :void
+		
+		public function activate(myX:Number,myY:Number) :void
 		{
 			this.x=myX;
 			this.y=myY;
@@ -68,6 +68,7 @@ package
 		protected function _hit():void
 		{
 			//サブクラスで、実際の挙動は実装
+			visual.gotoAndPlay("lhit");
 		}
 		
 		public function sleep() :void
@@ -76,13 +77,15 @@ package
 			this.y=-500;
 			_isActive=false;
 			_isReady=true;
+			this.rotation=0;
 		}
 		
 		public function outTest(w:Number,h:Number):Boolean
 		{
+			
 			//はみ出ている場合はtrue
 			var bool:Boolean=false;
-			if(this.x<0||this.x>w||this.y<0||this.y>h)
+			if(this.x<0-this.radius||this.x>w+this.radius||this.y<0-this.radius||this.y>h+this.radius)
 			{
 				bool=true;
 			}
