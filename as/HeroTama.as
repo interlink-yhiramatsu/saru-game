@@ -38,13 +38,14 @@ package
 			this.x=myX;
 			this.y=myY;
 			_isActive=true;
+			_isReady=false;
 			
 			if(Utils.getRandom(2)==0)
 			{
 				_speedX=_mySpeed;
 			}else
 			{
-				_speedX=-_mySpeed;
+				_speedX=_mySpeed;
 			}
 		}
 		

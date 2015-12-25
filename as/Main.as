@@ -60,13 +60,13 @@
 			//インスタンスを先に生成
 			
 			var _bg:MovieClip=new BG();
-			_bg.x=148;
-			_bg.y=118;
+			//			_bg.x=148;
+			//			_bg.y=118;
 			this.addChild(_bg);
 			
 			_container=new Sprite();
-			_container.x=148;
-			_container.y=118;
+			//			_container.x=148;
+			//			_container.y=118;
 			this.addChild(_container);
 			
 			//自分の初期配置
@@ -78,7 +78,7 @@
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
-				var enemy:Enemy=new Enemy();
+				var enemy:Enemy=new Enemy(this._hero,i);
 				_container.addChild(enemy);
 				_enemyList.push(enemy);
 			}
@@ -102,7 +102,7 @@
 			_timeBar=new TimeBar();
 			_container.addChild(_timeBar);
 			
-			addChild(new Waku());
+			
 		}
 		
 		/**
@@ -138,7 +138,7 @@
 			for(var i:int=0;i<MAX_HERO_TAMA;i++)
 			{
 				var heroTama:HeroTama=_heroTamaList[i];
-				if(heroTama.isActive==false)
+				if(heroTama.isReady==true)
 				{
 					heroTama.activate(myX,myY);
 					break;
@@ -153,21 +153,31 @@
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
 				var enemy:Enemy=_enemyList[i];
-				if(enemy.isActive==false)
+				if(enemy.isReady==true)
 				{
-					enemy.activate(Const.WIDTH,Utils.getRandom(Const.HEIGHT));
+					enemy.activate(Const.WIDTH-10,Utils.getRandom(Const.HEIGHT));
 					
-					if(Utils.getRandom(2)==0)
+					var ran:int=Utils.getRandom(4);
+					if(ran==0)
 					{
 						enemy.setEnemyType(Enemy.TYPE_DEF);
-					}else
+						
+					}else if(ran==1)
 					{
 						enemy.setEnemyType(Enemy.TYPE_KAMIKAZE,this._hero.x,this._hero.y);
+						
+					}else if(ran==2)
+					{
+						enemy.setEnemyType(Enemy.TYPE_MISSILE,this._hero.x,this._hero.y);
+						
+					}else if(ran==3)
+					{
+						enemy.setEnemyType(Enemy.TYPE_SHOURYU,Utils.getRandom(Const.WIDTH),Const.HEIGHT-10);
 					}
-					
 					
 					break;
 				}
+				
 				
 			}
 		}
@@ -188,7 +198,7 @@
 			
 			if(time<=0)
 			{			
-				trace("タイムアップ");
+				//trace("タイムアップ");
 			}else
 			{
 				_timeBar["time_bar"].scaleX=(time/TIME);
@@ -257,8 +267,6 @@
 				item.sleep();
 			}
 		}
-		
-		
 		
 		
 		private function _hitTest(objA:MovieClip, objB:MovieClip):Boolean

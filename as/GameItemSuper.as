@@ -7,6 +7,8 @@ package
 		protected var visual:MovieClip;
 		//待機状態かどうか
 		protected var _isActive:Boolean=false;
+		protected var _isReady:Boolean=true;
+		
 		protected var _radius:Number=10;
 		
 		public function GameItemSuper()
@@ -18,6 +20,11 @@ package
 		public function get isActive():Boolean
 		{
 			return _isActive;
+		}
+		
+		public function get isReady():Boolean
+		{
+			return _isReady;
 		}
 
 		protected function init():void{}
@@ -45,11 +52,13 @@ package
 			this.x=myX;
 			this.y=myY;
 			_isActive=true;
+			_isReady=false;
 		}
 		
 		public function hit() :void
 		{
-			this._isActive=false;
+			_isActive=false;
+			_isReady=false;
 			_hit();
 		}
 		
@@ -62,7 +71,8 @@ package
 		{
 			this.x=-500;
 			this.y=-500;
-			this._isActive=false;
+			_isActive=false;
+			_isReady=true;
 		}
 		
 		public function outTest(w:Number,h:Number):Boolean
