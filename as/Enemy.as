@@ -36,7 +36,6 @@ package
 			this.addChild(visual);
 			visual.addEventListener(Const.HIT_ANIM_END,onReset);
 			
-			//visual["test_txt"].text=""+_index;
 		}
 		
 		private function onReset(e:Event):void
@@ -47,12 +46,13 @@ package
 		
 		override protected function _step():void
 		{
-			//if(true)
+			var oldX:Number=this.x;
+			var oldY:Number=this.y;
+			
 			if(_enemyType==TYPE_DEF)
 			{
-			
-				this.x-=_speed;
 				
+				this.x+=_speed;
 				
 			}else if(_enemyType==TYPE_KAMIKAZE)
 			{
@@ -64,10 +64,24 @@ package
 					_terminalX=Utils.getRandom(Const.WIDTH);
 					_terminalY=Utils.getRandom(Const.HEIGHT);
 				}
+				//回転
+				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
+//				rot=rot%360;
+//				this.rotation=rot;
+//				if(this.x>=_traceTarget.x)
+//				{
+//					this.scaleX=-1;
+//				}else
+//				{
+//					this.scaleX=1;
+//				}
+				
 			}else if(_enemyType==TYPE_MISSILE)
 			{
 				this.x+=(this._traceTarget.x-this.x)/30;
 				this.y+=(this._traceTarget.y-this.y)/30;
+				//回転
+				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
 				
 				
 			}else if(_enemyType==TYPE_SHOURYU)
@@ -75,8 +89,8 @@ package
 				this.x-=_speed/2;
 				this.y-=_speed/2;
 				
-				
 			}
+			
 			
 		}
 		
@@ -86,23 +100,31 @@ package
 		}
 		
 		
-		override public function activate(myX:Number,myY:Number):void
-		{
-			this.x=myX-10;
-			this.y=myY;
-			_isActive=true;
-			_isReady=false;
-			
-		}
+//		override public function activate(myX:Number,myY:Number):void
+//		{
+//			this.x=myX-10;
+//			this.y=myY;
+//			_isActive=true;
+//			_isReady=false;
+//			
+//		}
 		
-		public function setEnemyType(enemyType:String,terminalX:Number=0,terminalY:Number=0):void
+		override public function activate(myX:Number,myY:Number,type:String="",terminalX:Number=0,terminalY:Number=0):void
 		{
-			
-			_enemyType=enemyType;
+			super.activate(myX,myY,type,terminalX,terminalY);
+			_enemyType=type;
 			_terminalX=terminalX;
 			_terminalY=terminalY;
+
 		}
 		
+//		public function setEnemyType(enemyType:String,terminalX:Number=0,terminalY:Number=0):void
+//		{
+//			_enemyType=enemyType;
+//			_terminalX=terminalX;
+//			_terminalY=terminalY;
+//		}
+//		
 		
 		
 	}

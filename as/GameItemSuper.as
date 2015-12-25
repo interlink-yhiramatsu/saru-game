@@ -47,12 +47,15 @@ package
 			//サブクラスで、実際の挙動は実装
 		}
 		
-		public function activate(myX:Number,myY:Number) :void
+		
+		public function activate(myX:Number,myY:Number,type:String="",terminalX:Number=0,terminalY:Number=0):void
+			//public function activate(myX:Number,myY:Number) :void
 		{
 			this.x=myX;
 			this.y=myY;
 			_isActive=true;
 			_isReady=false;
+			
 		}
 		
 		public function hit() :void

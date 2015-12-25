@@ -155,24 +155,28 @@
 				var enemy:Enemy=_enemyList[i];
 				if(enemy.isReady==true)
 				{
-					enemy.activate(Const.WIDTH-10,Utils.getRandom(Const.HEIGHT));
+					
 					
 					var ran:int=Utils.getRandom(4);
 					if(ran==0)
 					{
-						enemy.setEnemyType(Enemy.TYPE_DEF);
+
+						enemy.activate(Const.WIDTH-10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_DEF);
 						
 					}else if(ran==1)
 					{
-						enemy.setEnemyType(Enemy.TYPE_KAMIKAZE,this._hero.x,this._hero.y);
+						enemy.activate(Const.WIDTH-10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_KAMIKAZE,this._hero.x,this._hero.y);
+						
 						
 					}else if(ran==2)
 					{
-						enemy.setEnemyType(Enemy.TYPE_MISSILE,this._hero.x,this._hero.y);
+						enemy.activate(Const.WIDTH-10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_MISSILE,this._hero.x,this._hero.y);
+						
 						
 					}else if(ran==3)
 					{
-						enemy.setEnemyType(Enemy.TYPE_SHOURYU,Utils.getRandom(Const.WIDTH),Const.HEIGHT-10);
+						enemy.activate(Const.WIDTH-10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_SHOURYU,Utils.getRandom(Const.WIDTH),Const.HEIGHT-10);
+						
 					}
 					
 					break;
