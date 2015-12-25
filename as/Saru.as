@@ -17,12 +17,14 @@
 		{
 			
 			pre = new Pre();
-			stage.addChild(pre);
+//			pre.x=148;
+//			pre.y=118;
+			stage.addChildAt(pre,0);
 			pre.addEventListener(Const.PRE_START_BT_CLICK, onPreStartHandler);
 			
 			main = new Main();
-			main.x=148;
-			main.y=118;
+//			main.x=148;
+//			main.y=118;
 			stage.addChildAt(main,0);
 			main.addEventListener(Const.MAIN_END, onMainEndHandler);
 			

@@ -1,6 +1,8 @@
 ﻿package  {
 	
+	import flash.display.MorphShape;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
@@ -30,6 +32,9 @@
 		//インスタンス系
 		private var _hero:Hero;
 		
+		private var _container:Sprite;
+		private var _timeBar:MovieClip;
+		
 		/*注意！！　配列は作り替えないよ*/
 		//敵の配列
 		private var _enemyList:Array=[];
@@ -54,17 +59,27 @@
 			
 			//インスタンスを先に生成
 			
+			var _bg:MovieClip=new BG();
+			_bg.x=148;
+			_bg.y=118;
+			this.addChild(_bg);
+			
+			_container=new Sprite();
+			_container.x=148;
+			_container.y=118;
+			this.addChild(_container);
+			
 			//自分の初期配置
 			this._hero = new Hero();
 			this._hero.x=Const.WIDTH/2;
 			this._hero.y=Const.HEIGHT/2;
-			this.addChildAt(_hero,1);
+			_container.addChild(_hero);
 			
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
 				var enemy:Enemy=new Enemy();
-				this.addChildAt(enemy,1);
+				_container.addChild(enemy);
 				_enemyList.push(enemy);
 			}
 			
@@ -72,7 +87,7 @@
 			for(var k:int=0;k<MAX_HERO_TAMA;k++)
 			{
 				var heroTama:HeroTama=new HeroTama();
-				this.addChildAt(heroTama,1);
+				_container.addChild(heroTama);
 				_heroTamaList.push(heroTama);
 			}
 			
@@ -84,7 +99,10 @@
 			//				_enemyTamaList.push(enemyTama);
 			//			}
 			
+			_timeBar=new TimeBar();
+			_container.addChild(_timeBar);
 			
+			addChild(new Waku());
 		}
 		
 		/**
@@ -95,16 +113,14 @@
 			//この画面を表示
 			this.visible = true;
 			
-			
-			
 			//タイマー追加
-			_enemyProduceTimer=new Timer(1000);
+			_enemyProduceTimer=new Timer(700);
 			_enemyProduceTimer.addEventListener(TimerEvent.TIMER,_timerHandler);
 			_enemyProduceTimer.start();
 			
 			//時間制限
 			time=TIME;
-			this["time_bar"].scaleX=1;
+			_timeBar["time_bar"].scaleX=1;
 			
 			//イベント追加
 			this.addEventListener(Event.ENTER_FRAME, _step);
@@ -175,7 +191,7 @@
 				trace("タイムアップ");
 			}else
 			{
-				this["time_bar"].scaleX=(time/TIME);
+				_timeBar["time_bar"].scaleX=(time/TIME);
 			}
 			
 			/*最初にまとめて移動*/

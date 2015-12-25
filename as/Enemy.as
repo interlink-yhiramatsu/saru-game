@@ -12,6 +12,8 @@ package
 		
 		public static const TYPE_DEF:String="typeDef";
 		public static const TYPE_KAMIKAZE:String="typeKamikaze";
+		public static const TYPE_SHOURYU:String="typeShouryu";
+		public static const TYPE_MISSILE:String="typeMissile";
 		
 		public function Enemy()
 		{
@@ -35,8 +37,8 @@ package
 		
 		override protected function _step():void
 		{
-			if(true)
-//			if(_enemyType==TYPE_DEF)
+			//if(true)
+			if(_enemyType==TYPE_DEF)
 			{
 			
 				this.x-=_speed;
@@ -64,7 +66,7 @@ package
 		
 		override public function activate(myX:Number,myY:Number):void
 		{
-			this.x=myX;
+			this.x=myX-10;
 			this.y=myY;
 			
 			

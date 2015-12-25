@@ -15,34 +15,23 @@ package
 		 */
 		public function Pre()
 		{
-			init();
-//			btStart = this.bt_start;
-//			if(stage)
-//			{
-//				onStage();
-//			}else
-//			{
-//				this.addEventListener(Event.ADDED_TO_STAGE,onStage);
-//			}
+			_init();
+
 		}
 		
-//		private function onStage(e:Event=null):void
-//		{
-//			this.removeEventListener(Event.ADDED_TO_STAGE,onStage); //イベントを使い終わったら開放する
-//			
-//			btStart.x = 0;
-//			btStart.y = 0;
-//			
-//			btStart.addEventListener(MouseEvent.CLICK, clickHandler);
-//		}
-//		
-//		private function clickHandler(e:MouseEvent):void
-//		{
-//			var bt:MovieClip = MovieClip(e.currentTarget);
-//			bt.removeEventListener(MouseEvent.CLICK, clickHandler);
-////			bt.visible = false; //インスタンスの非表示
-//			this.dispatchEvent(new Event("okome")); //イベントを発信
-//		}
+		private function _init() :void
+		{
+			btStart=this["start_bt"]
+			btStart.addEventListener(MouseEvent.CLICK, clickHandler);
+		}
+	
+		private function clickHandler(e:MouseEvent):void
+		{
+			var bt:MovieClip = MovieClip(e.currentTarget);
+			bt.removeEventListener(MouseEvent.CLICK, clickHandler);
+//			bt.visible = false; //インスタンスの非表示
+			this.dispatchEvent(new Event(Const.PRE_START_BT_CLICK)); //イベントを発信
+		}
 
 		/**
 		 * 初期化
@@ -58,7 +47,7 @@ package
 		public function start():void
 		{
 			this.visible = true;
-			this.dispatchEvent(new Event(Const.PRE_START_BT_CLICK)); //スタートボタンを押したことを発信する
+			//this.dispatchEvent(new Event(Const.PRE_START_BT_CLICK)); //スタートボタンを押したことを発信する
 		}
 		
 		/**
