@@ -7,9 +7,10 @@
 		private const TICK:uint=4;
 		
 		
-		
 		public function Hero()
 		{
+			_radius=45;
+			
 			_isActive=true;
 			
 			visual=this["heroVisual"];
