@@ -25,8 +25,8 @@
 		private var _enemyProduceTimer:Timer;
 		
 		//時間カウント
-		private const TIME:int=300;
-		private var time:int=TIME;
+		private const GAME_TIME:int=300;
+		private var _currentTime:int=GAME_TIME;
 		
 		
 		//インスタンス系
@@ -55,24 +55,20 @@
 		
 		private function _init():void
 		{
+			//最初の一回だけでの処理を記載
+			
+			
 			this.visible = false;
 			
 			//インスタンスを先に生成
-			
 			var _bg:MovieClip=new BG();
-			//			_bg.x=148;
-			//			_bg.y=118;
 			this.addChild(_bg);
 			
 			_container=new Sprite();
-			//			_container.x=148;
-			//			_container.y=118;
 			this.addChild(_container);
 			
-			//自分の初期配置
+			//自分
 			this._hero = new Hero();
-			this._hero.x=Const.WIDTH/2;
-			this._hero.y=Const.HEIGHT/2;
 			_container.addChild(_hero);
 			
 			
@@ -91,16 +87,9 @@
 				_heroTamaList.push(heroTama);
 			}
 			
-			
-			//			for(var j:int=0;j<MAX_ENEMY_TAMA;j++)
-			//			{
-			//				var enemyTama:EnemyTama=new EnemyTama();
-			//				this.addChild(enemyTama);
-			//				_enemyTamaList.push(enemyTama);
-			//			}
-			
 			_timeBar=new TimeBar();
 			_container.addChild(_timeBar);
+			
 			
 			
 		}
@@ -110,34 +99,45 @@
 		 */
 		public function start():void
 		{
-			
-			//ここはリセットの機能に変更
-			
+			//===================================================//
+			//最初にリセット
+			//===================================================//
+			//スコア
 			_score=0;
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			//この画面を表示
-			this.visible = true;
-			
-			//タイマー追加
+			//タイマーをリスタート
 			_enemyProduceTimer=new Timer(700);
 			_enemyProduceTimer.addEventListener(TimerEvent.TIMER,_timerHandler);
 			_enemyProduceTimer.start();
 			
 			//時間制限
-			time=TIME;
+			_currentTime=GAME_TIME;
 			_timeBar["time_bar"].scaleX=1;
+			
+			//インスタンスの状態を初期化
+			this._hero.x=Const.WIDTH/2;
+			this._hero.y=Const.HEIGHT/2;
+			
+			
+			for(var i:int=0;i<MAX_ENEMY;i++)
+			{
+				var enemy:Enemy=_enemyList[i];
+				enemy.sleep();
+			}
+			for(var k:int=0;k<MAX_HERO_TAMA;k++)
+			{
+				var heroTama:HeroTama=_heroTamaList[k];
+				heroTama.sleep();
+			}
+			
+			
 			
 			//イベント追加
 			this.addEventListener(Event.ENTER_FRAME, _step);
 			this.addEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
+			
+			//この画面を表示
+			this.visible = true;
 			
 		}
 		
@@ -172,7 +172,7 @@
 					var ran:int=Utils.getRandom(4);
 					if(ran==0)
 					{
-
+						
 						enemy.spawn(-10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_DEF);
 						
 					}else if(ran==1)
@@ -193,7 +193,6 @@
 					
 					break;
 				}
-				
 			}
 		}
 		
@@ -209,15 +208,15 @@
 		{
 			
 			//時間制限
-			time--;
+			_currentTime--;
 			
-			if(time<=0)
+			if(_currentTime<=0)
 			{			
 				//trace("タイムアップ");
 				_onTimeupEnd();
 			}else
 			{
-				_timeBar["time_bar"].scaleX=(time/TIME);
+				_timeBar["time_bar"].scaleX=(_currentTime/GAME_TIME);
 			}
 			
 			/*最初にまとめて移動*/
@@ -318,8 +317,18 @@
 			_onEnd();
 		}
 		
+		
+		/*終了の件は、演出に合わせて　要リファクタリング*/
 		private function _onEnd():void
 		{
+			_enemyProduceTimer.stop();
+			_enemyProduceTimer.removeEventListener(TimerEvent.TIMER,_timerHandler);
+			
+			//イベント削除
+			this.removeEventListener(Event.ENTER_FRAME, _step);
+			this.removeEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
+			
+			//終了を通知
 			this.dispatchEvent(new Event(Const.MAIN_END));
 		}
 		
@@ -330,7 +339,9 @@
 		public function end():void
 		{
 			//リセットを実装かしらね
-			this.visible=false;
+			//デバッグ用に廃棄
+			
+			//this.visible=false;
 		}
 		
 		/**

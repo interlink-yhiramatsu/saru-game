@@ -15,20 +15,24 @@
 		 */
 		public function Saru()
 		{
-			
+			_init();
+		}
+		
+		private function _init():void
+		{
 			_pre = new Pre();
-			stage.addChildAt(_pre,0);
+			stage.addChild(_pre);
 			_pre.addEventListener(Const.PRE_START_BT_CLICK, _onPreStartHandler);
 			
 			_main = new Main();
-			stage.addChildAt(_main,0);
+			stage.addChild(_main);
 			_main.addEventListener(Const.MAIN_END, _onMainEndHandler);
 			
-//			rule = new Rule();
-//			rule.addEventListener(Const.RULE_START, onRuleStartHandler);
+			//			rule = new Rule();
+			//			rule.addEventListener(Const.RULE_START, onRuleStartHandler);
 			
 			_result = new Result();
-			stage.addChildAt(_result,0);
+			stage.addChild(_result);
 			_result.addEventListener(Const.RESULT_REPLAY, _onResultReplayHandler);
 			
 			_pre.start();
