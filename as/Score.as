@@ -31,20 +31,21 @@ package
 			_score = value;
 		}
 		
+		
 		/**
 		 * 
 		 */
-		public function get hitNum():Number
-		{
-			return _hitNum;
-		}
-		
-				
-		public function set hitNum(value:Number):void
-		{
-			_hitNum = value;
-		}
-		
+//		public function get hitNum():Number
+//		{
+//			return _hitNum;
+//		}
+//		
+//				
+//		public function set hitNum(value:Number):void
+//		{
+//			_hitNum = value;
+//		}
+//		
 		
 	}
 }

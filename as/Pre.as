@@ -7,7 +7,7 @@ package
 	public class Pre extends MovieClip
 	{	
 		
-		private var btStart:MovieClip;
+		private var _btStart:MovieClip;
 		
 		
 		/**
@@ -21,25 +21,15 @@ package
 		
 		private function _init() :void
 		{
-			btStart=this["start_bt"]
-			btStart.addEventListener(MouseEvent.CLICK, clickHandler);
+			_btStart=this["start_bt"]
+			_btStart.addEventListener(MouseEvent.CLICK, _clickHandler);
 		}
 	
-		private function clickHandler(e:MouseEvent):void
+		private function _clickHandler(e:MouseEvent):void
 		{
-			var bt:MovieClip = MovieClip(e.currentTarget);
-			bt.removeEventListener(MouseEvent.CLICK, clickHandler);
-//			bt.visible = false; //インスタンスの非表示
 			this.dispatchEvent(new Event(Const.PRE_START_BT_CLICK)); //イベントを発信
 		}
 
-		/**
-		 * 初期化
-		 */
-		private function init():void
-		{
-			this.visible = false;
-		}
 		
 		/**
 		 * 画面を表示する

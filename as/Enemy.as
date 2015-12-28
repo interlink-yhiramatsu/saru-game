@@ -100,6 +100,5 @@ package
 			_terminalY=terminalY;
 
 		}
-		
 	}
 }

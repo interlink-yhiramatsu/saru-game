@@ -50,10 +50,10 @@
 		 */
 		public function Main() {
 			
-			init();
+			_init();
 		}
 		
-		private function init():void
+		private function _init():void
 		{
 			this.visible = false;
 			
@@ -110,6 +110,19 @@
 		 */
 		public function start():void
 		{
+			
+			//ここはリセットの機能に変更
+			
+			_score=0;
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			//この画面を表示
 			this.visible = true;
 			
@@ -201,6 +214,7 @@
 			if(time<=0)
 			{			
 				//trace("タイムアップ");
+				_onTimeupEnd();
 			}else
 			{
 				_timeBar["time_bar"].scaleX=(time/TIME);
@@ -237,6 +251,7 @@
 				if(_hitTest(currentEnemy,this._hero))
 				{
 					//trace("自分にあたった");
+					_onLoseEnd();
 				}
 				
 				for(var j:int=0;j<MAX_HERO_TAMA;j++)
@@ -249,6 +264,7 @@
 						if(currentEnemy.isActive==true&&currentHeroTama.isActive==true)
 						{
 							//trace("敵に自分の弾丸があたった");
+							_score++;
 							currentEnemy.hit();
 							currentHeroTama.hit();
 						}
@@ -291,13 +307,30 @@
 			
 		}
 		
+		private function _onTimeupEnd():void
+		{
+			//仮
+			_onEnd();
+		}
+		private function _onLoseEnd():void
+		{
+			//仮
+			_onEnd();
+		}
+		
+		private function _onEnd():void
+		{
+			this.dispatchEvent(new Event(Const.MAIN_END));
+		}
+		
 		
 		/**
 		 * ゲーム終了
 		 */
 		public function end():void
 		{
-			
+			//リセットを実装かしらね
+			this.visible=false;
 		}
 		
 		/**
