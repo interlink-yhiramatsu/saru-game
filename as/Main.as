@@ -13,8 +13,9 @@
 	{
 		
 		//上限
-		private const MAX_ENEMY:int=30;
-		private const MAX_HERO_TAMA:int=5;
+		private const MAX_ENEMY:int=Const.MAX_ENEMY;
+		
+		private const MAX_HERO_TAMA:int=Const.MAX_HERO_TAMA;
 		//未実装
 		//private const MAX_ENEMY_TAMA:int=100;
 		
@@ -25,7 +26,7 @@
 		private var _enemyProduceTimer:Timer;
 		
 		//時間カウント
-		private const GAME_TIME:int=300;
+		private const GAME_TIME:int=Const.GAME_TIME;
 		private var _currentTime:int=GAME_TIME;
 		
 		
