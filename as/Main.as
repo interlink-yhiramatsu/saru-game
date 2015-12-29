@@ -61,6 +61,9 @@
 			
 			this.visible = false;
 			
+			//自分
+			this._hero = new Hero();
+			
 			//インスタンスを先に生成
 			var _bg:MovieClip=new BG();
 			this.addChild(_bg);
@@ -84,7 +87,6 @@
 			}
 			
 			//自分
-			this._hero = new Hero();
 			_container.addChild(_hero);
 			
 			_timeBar=new TimeBar();
