@@ -3,7 +3,7 @@ package
 	public class Const
 	{
 		
-		public static const VERSION:String="0.9";
+		public static const VERSION:String="2015.12.29:0.9";
 		public static const AUTHOR:String="higeguma";
 		
 		//ゲームの基本設定
