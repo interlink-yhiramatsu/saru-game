@@ -25,6 +25,9 @@ package
 		public static const MAIN_END:String = "mainEnd";
 		public static const RESULT_REPLAY:String = "resultReplay";
 		
+		public static const MAKU_CHANGE:String = "makuChanged";
+		public static const MAKU_END:String = "makuEnd";
+		
 		public static const HIT_ANIM_END:String = "hitAnimEnd";
 		
 		

@@ -68,11 +68,6 @@
 			_container=new Sprite();
 			this.addChild(_container);
 			
-			//自分
-			this._hero = new Hero();
-			_container.addChild(_hero);
-			
-			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
 				var enemy:Enemy=new Enemy(this._hero,i);
@@ -87,6 +82,10 @@
 				_container.addChild(heroTama);
 				_heroTamaList.push(heroTama);
 			}
+			
+			//自分
+			this._hero = new Hero();
+			_container.addChild(_hero);
 			
 			_timeBar=new TimeBar();
 			_container.addChild(_timeBar);
