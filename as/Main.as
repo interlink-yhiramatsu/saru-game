@@ -315,7 +315,7 @@
 			{
 				_currentEnemy=_enemyList[i];
 				
-				if(_hitTest(_currentEnemy,this._hero))
+				if(_currentEnemy.isActive==true&&_hitTest(_currentEnemy,this._hero))
 				{
 					trace("自分にあたった");
 					if(!Const.DEBUG)_onLoseEnd();
