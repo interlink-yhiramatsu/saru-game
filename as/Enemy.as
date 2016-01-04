@@ -33,7 +33,7 @@ package
 		
 		override protected function _init():void
 		{
-			_radius=25;
+			_radius=20;
 			_visual=new HitsujiVisual();
 			this.addChild(_visual);
 			_visual.addEventListener(Const.VISUAL_HIT_ANIM_END,_onReset);
