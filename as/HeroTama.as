@@ -38,15 +38,15 @@ package
 		
 		
 		
-		override public function activate(myX:Number,myY:Number) :void
+		override public function activate(myX:Number,myY:Number,type:int=0) :void
 		{
 			
 			super.activate(myX,myY);
 			
-			if(Utils.getRandom(2)==0)
+			if(type==0)
 			{
 				_speedX=_mySpeed;
-			}else
+			}else if(type==1)
 			{
 				_speedX=-_mySpeed;
 			}

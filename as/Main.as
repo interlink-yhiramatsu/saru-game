@@ -155,7 +155,15 @@
 				var heroTama:HeroTama=_heroTamaList[i];
 				if(heroTama.isReady==true)
 				{
-					heroTama.activate(myX,myY);
+					
+					if(Utils.getRandom(2)==0)
+					{
+						heroTama.activate(myX+42,myY-13,0);
+					}else
+					{
+						heroTama.activate(myX,myY,1);
+					}
+					
 					break;
 				}
 				
@@ -266,6 +274,7 @@
 						{
 							//trace("敵に自分の弾丸があたった");
 							_score++;
+							trace(this+"スコア： "+_score);
 							currentEnemy.hit();
 							currentHeroTama.hit();
 						}

@@ -49,7 +49,7 @@ package
 		
 		
 		
-		public function activate(myX:Number,myY:Number) :void
+		public function activate(myX:Number,myY:Number,type:int=0) :void
 		{
 			this.x=myX;
 			this.y=myY;
@@ -57,6 +57,8 @@ package
 			_isReady=false;
 			
 		}
+		
+	
 		
 		public function hit() :void
 		{

@@ -29,6 +29,17 @@ package
 		public function showScore(score:int):void
 		{
 			_currentScore=score;
+			
+			//けた揃えして、MCを動かす
+			if(_currentScore>999)_currentScore=999;
+			var _scoreStr:String=("00"+_currentScore).slice(-3);
+			
+			trace(_scoreStr);
+			this["suji_0"].gotoAndStop(Number(_scoreStr.charAt(0))+1);
+			this["suji_1"].gotoAndStop(Number(_scoreStr.charAt(1))+1);
+			this["suji_2"].gotoAndStop(Number(_scoreStr.charAt(2))+1);
+			
+			
 			this.visible=true;
 			
 			//trace(_currentScore);
