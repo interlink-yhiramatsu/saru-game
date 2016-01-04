@@ -116,7 +116,8 @@
 			
 			//インスタンスの状態を初期化
 
-			this._hero.reset(Const.WIDTH/2,Const.HEIGHT);
+//			this._hero.reset(Const.WIDTH/2,Const.HEIGHT/2);
+			this._hero.reset(0,Const.HEIGHT/2);
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{

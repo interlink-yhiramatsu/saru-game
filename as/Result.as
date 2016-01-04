@@ -34,7 +34,7 @@ package
 			if(_currentScore>999)_currentScore=999;
 			var _scoreStr:String=("00"+_currentScore).slice(-3);
 			
-			trace(_scoreStr);
+			//trace(_scoreStr);
 			this["suji_0"].gotoAndStop(Number(_scoreStr.charAt(0))+1);
 			this["suji_1"].gotoAndStop(Number(_scoreStr.charAt(1))+1);
 			this["suji_2"].gotoAndStop(Number(_scoreStr.charAt(2))+1);
