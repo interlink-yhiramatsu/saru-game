@@ -2,8 +2,9 @@ package
 {
 	public class Const
 	{
+		//Canvas用にするどー
 		public static const DEBUG:Boolean=false;
-		public static const VERSION:String="2016.01.04:1.0";
+		public static const VERSION:String="2016.01.04:1.1";
 		public static const AUTHOR:String="higeguma";
 		
 		/*ゲームの基本設定*/
