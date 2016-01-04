@@ -2,8 +2,8 @@ package
 {
 	public class Const
 	{
-		
-		public static const VERSION:String="2015.12.29:0.9";
+		public static const DEBUG:Boolean=true;
+		public static const VERSION:String="2016.01.04:1.0";
 		public static const AUTHOR:String="higeguma";
 		
 		//ゲームの基本設定
@@ -11,12 +11,12 @@ package
 		public static const HEIGHT:Number=450;
 		
 		//１ゲームの時間
-		public static const GAME_TIME:int=300;
+		public static const GAME_TIME:int=600;
 		
 		//敵の数の上限
 		public static const MAX_ENEMY:int=30;
 		//自分の弾丸の上限
-		public static const MAX_HERO_TAMA:int=5;
+		public static const MAX_HERO_TAMA:int=10;
 		
 		//イベント名を定義
 		public static const PRE_START_BT_CLICK:String = "preStartBtClick";

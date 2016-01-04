@@ -19,6 +19,8 @@
 		//未実装
 		//private const MAX_ENEMY_TAMA:int=100;
 		
+		private var isShot:Boolean=false;
+		
 		//スコア系
 		private var _score:Number = 0;
 		
@@ -104,6 +106,10 @@
 			//===================================================//
 			//最初にリセット
 			//===================================================//
+			
+			//ショット
+			isShot=false;
+			
 			//スコア
 			_score=0;
 			
@@ -137,6 +143,7 @@
 			//イベント追加
 			this.addEventListener(Event.ENTER_FRAME, _step);
 			this.addEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
+			this.addEventListener(MouseEvent.MOUSE_UP,_mouseUpHandler);
 			
 			//この画面を表示
 			this.visible = true;
@@ -145,8 +152,17 @@
 		
 		private function _mouseDownHandler(e:MouseEvent):void
 		{
-			_heroShot(this._hero.x,this._hero.y);
+			isShot=true;
+			//			_heroShot(this._hero.x,this._hero.y);
 		}
+		
+		private function _mouseUpHandler(e:MouseEvent):void
+		{
+			isShot=false;
+			//			_heroShot(this._hero.x,this._hero.y);
+		}
+		
+		
 		
 		private function _heroShot(myX:Number,myY:Number):void
 		{
@@ -179,7 +195,9 @@
 				if(enemy.isReady==true)
 				{
 					
-					var ran:int=Utils.getRandom(4);
+					var ran:int=Utils.getRandom(6);
+					
+					
 					if(ran==0)
 					{
 						
@@ -187,7 +205,7 @@
 						
 					}else if(ran==1)
 					{
-						enemy.spawn(Const.WIDTH-10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_KAMIKAZE,this._hero.x,this._hero.y);
+						enemy.spawn(Const.WIDTH+10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_KAMIKAZE,this._hero.x,this._hero.y);
 						
 						
 					}else if(ran==2)
@@ -197,7 +215,15 @@
 						
 					}else if(ran==3)
 					{
-						enemy.spawn(Utils.getRandom(Const.WIDTH),Const.HEIGHT-10,Enemy.TYPE_SHOURYU);
+						enemy.spawn(Utils.getRandom(Const.WIDTH),Const.HEIGHT+10,Enemy.TYPE_SHOURYU);
+						
+					}else if(ran==4)
+					{
+						enemy.spawn(Utils.getRandom(Const.WIDTH),-10,Enemy.TYPE_FUWAFUWA_X,this._hero.x,this._hero.y);
+						
+					}else if(ran==5)
+					{
+						enemy.spawn(Const.WIDTH+10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_FUWAFUWA_X,this._hero.x,this._hero.y);
 						
 					}
 					
@@ -216,6 +242,13 @@
 		
 		private function _step(e:Event):void
 		{
+			
+			//打ちっ放し判定
+			if(isShot==true&&(_currentTime%3==0))
+			{
+				_heroShot(this._hero.x,this._hero.y);
+			}
+			
 			
 			//時間制限
 			_currentTime--;
@@ -259,8 +292,9 @@
 				
 				if(_hitTest(currentEnemy,this._hero))
 				{
-					//trace("自分にあたった");
-					_onLoseEnd();
+					trace("自分にあたった");
+					if(!Const.DEBUG)_onLoseEnd();
+					
 				}
 				
 				for(var j:int=0;j<MAX_HERO_TAMA;j++)

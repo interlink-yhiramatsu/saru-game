@@ -16,6 +16,8 @@ package
 		public static const TYPE_KAMIKAZE:String="typeKamikaze";
 		public static const TYPE_SHOURYU:String="typeShouryu";
 		public static const TYPE_MISSILE:String="typeMissile";
+		public static const TYPE_FUWAFUWA_X:String="typeFuwafuwaX";
+		public static const TYPE_FUWAFUWA_Y:String="typeFuwafuwaY";
 		
 		// テスト用
 		public var _index:int;
@@ -79,6 +81,21 @@ package
 			{
 				this.x+=5;
 				this.y+=-5;
+				
+				//回転
+				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
+				
+			}else if(_enemyType==TYPE_FUWAFUWA_X)
+			{
+				this.x+=(this._traceTarget.x-this.x)/(Utils.getRandom(20)+20);
+				this.y+=(this._terminalY-this.y)/30;
+				//回転
+				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
+				
+			}else if(_enemyType==TYPE_FUWAFUWA_Y)
+			{
+				this.x+=(this._terminalX-this.x)/30;
+				this.y+=(this._traceTarget.y-this.y)/(Utils.getRandom(20)+20);
 				
 				//回転
 				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
