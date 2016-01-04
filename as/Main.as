@@ -65,6 +65,7 @@
 			
 			//自分
 			this._hero = new Hero();
+			this._hero.addEventListener(Const.HIT_ANIM_END,_onHeroHitAnimEnd);
 			
 			//インスタンスを先に生成
 			var _bg:MovieClip=new BG();
@@ -123,9 +124,11 @@
 			_timeBar["time_bar"].scaleX=1;
 			
 			//インスタンスの状態を初期化
-			this._hero.x=Const.WIDTH/2;
-			this._hero.y=Const.HEIGHT/2;
 			
+//			this._hero.x=Const.WIDTH/2;
+//			this._hero.y=Const.HEIGHT/2;
+			
+			this._hero.activate(Const.WIDTH/2,Const.HEIGHT);
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
@@ -358,7 +361,12 @@
 		}
 		private function _onLoseEnd():void
 		{
-			//仮
+			//ヒーローの爆発
+			this._hero.hit();
+		}
+		
+		private function _onHeroHitAnimEnd(e:Event):void
+		{
 			_onEnd();
 		}
 		

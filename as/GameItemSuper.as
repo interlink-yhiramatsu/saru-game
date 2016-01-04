@@ -95,10 +95,7 @@ package
 			return bool;
 		}
 		
-		public function reset():void
-		{
-
-		}
+		
 		
 		public function destroy():void
 		{
