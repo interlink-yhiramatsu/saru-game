@@ -11,7 +11,7 @@ package
 		public static const HEIGHT:Number=450;
 		
 		//１ゲームの時間
-		public static const GAME_TIME:int=600;
+		public static const GAME_TIME:int=100;
 		
 		//敵の数の上限
 		public static const MAX_ENEMY:int=30;
@@ -31,6 +31,7 @@ package
 		public static const MAKU_END:String = "makuEnd";
 		
 		public static const HIT_ANIM_END:String = "hitAnimEnd";
+		public static const HERO_HIT_ANIM_END:String = "heroHitAnimEnd";
 		
 		
 		

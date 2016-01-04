@@ -65,7 +65,7 @@
 			
 			//自分
 			this._hero = new Hero();
-			this._hero.addEventListener(Const.HIT_ANIM_END,_onHeroHitAnimEnd);
+			this._hero.addEventListener(Const.HERO_HIT_ANIM_END,_onHeroHitAnimEnd);
 			
 			//インスタンスを先に生成
 			var _bg:MovieClip=new BG();
@@ -124,11 +124,8 @@
 			_timeBar["time_bar"].scaleX=1;
 			
 			//インスタンスの状態を初期化
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//			this._hero.x=Const.WIDTH/2;
-//			this._hero.y=Const.HEIGHT/2;
-			
-			//this._hero.activate(Const.WIDTH/2,Const.HEIGHT);
+
+			this._hero.reset(Const.WIDTH/2,Const.HEIGHT);
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
@@ -356,19 +353,12 @@
 		
 		private function _onTimeupEnd():void
 		{
-			//仮
 			_onEnd();
+			this.dispatchEvent(new Event(Const.MAIN_END));
 		}
 		private function _onLoseEnd():void
 		{
-			//ヒーローの爆発
-			//this._hero.hit();
-			//仮
-			_onEnd();
-		}
-		
-		private function _onHeroHitAnimEnd(e:Event):void
-		{
+			_hero.hit();
 			_onEnd();
 		}
 		
@@ -376,6 +366,7 @@
 		/*終了の件は、演出に合わせて　要リファクタリング*/
 		private function _onEnd():void
 		{
+			//タイマーをストップ
 			_enemyProduceTimer.stop();
 			_enemyProduceTimer.removeEventListener(TimerEvent.TIMER,_timerHandler);
 			
@@ -383,6 +374,10 @@
 			this.removeEventListener(Event.ENTER_FRAME, _step);
 			this.removeEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
 			
+		}
+		
+		private function _onHeroHitAnimEnd(e:Event):void
+		{
 			//終了を通知
 			this.dispatchEvent(new Event(Const.MAIN_END));
 		}

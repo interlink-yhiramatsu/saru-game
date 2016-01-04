@@ -10,27 +10,30 @@
 		
 		public function Hero()
 		{
-			
 			super();
-			
 		}
 		
 		override protected function _init():void
 		{
-			_radius=45;
+			_radius=24;
 			visual=this["heroVisual"];
 			visual.x -= visual.width/2;
 			visual.y -= visual.height/2;
-			visual.addEventListener(Const.HIT_ANIM_END,onReset);
+			
+			visual.addEventListener(Const.HIT_ANIM_END,onHitEnd);
 			
 			
 		}
 		
-		private function onReset(e:Event):void
+		public function reset(myX:Number,myY:Number):void
 		{
 			visual.gotoAndStop("ldef");
-			this.sleep();
-			this.dispatchEvent(new Event(Const.HIT_ANIM_END));
+			this.activate(myX,myY);
+		}
+		
+		private function onHitEnd(e:Event):void
+		{
+			this.dispatchEvent(new Event(Const.HERO_HIT_ANIM_END));
 		}
 
 		
@@ -39,8 +42,6 @@
 			this.x+=(this.parent.mouseX-this.x)/TICK;
 			this.y+=(this.parent.mouseY-this.y)/TICK;
 		}
-		
-
 		
 	}
 }
