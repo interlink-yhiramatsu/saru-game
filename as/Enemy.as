@@ -34,17 +34,17 @@ package
 		override protected function _init():void
 		{
 			_radius=25;
-			visual=new HitsujiVisual();
-			this.addChild(visual);
-			visual.addEventListener(Const.HIT_ANIM_END,_onReset);
+			_visual=new HitsujiVisual();
+			this.addChild(_visual);
+			_visual.addEventListener(Const.VISUAL_HIT_ANIM_END,_onReset);
 			
 		}
 		
 		
 		override protected function _step():void
 		{
-			var oldX:Number=this.x;
-			var oldY:Number=this.y;
+			var _oldX:Number=this.x;
+			var _oldY:Number=this.y;
 			
 			if(_enemyType==TYPE_DEF)
 			{
@@ -61,7 +61,7 @@ package
 					_terminalY=Utils.getRandom(Const.HEIGHT);
 				}
 				//回転
-				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
+				this.rotation=_getRot(this.x-_oldX,this.y-_oldY);
 
 				
 			}else if(_enemyType==TYPE_MISSILE)
@@ -69,7 +69,7 @@ package
 				this.x+=(this._traceTarget.x-this.x)/30;
 				this.y+=(this._traceTarget.y-this.y)/30;
 				//回転
-				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
+				this.rotation=_getRot(this.x-_oldX,this.y-_oldY);
 				
 				
 			}else if(_enemyType==TYPE_SHOURYU)
@@ -78,14 +78,14 @@ package
 				this.y+=-5;
 				
 				//回転
-				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
+				this.rotation=_getRot(this.x-_oldX,this.y-_oldY);
 				
 			}else if(_enemyType==TYPE_FUWAFUWA_X)
 			{
 				this.x+=(this._traceTarget.x-this.x)/(Utils.getRandom(20)+20);
 				this.y+=(this._terminalY-this.y)/30;
 				//回転
-				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
+				this.rotation=_getRot(this.x-_oldX,this.y-_oldY);
 				
 			}else if(_enemyType==TYPE_FUWAFUWA_Y)
 			{
@@ -93,10 +93,15 @@ package
 				this.y+=(this._traceTarget.y-this.y)/(Utils.getRandom(20)+20);
 				
 				//回転
-				this.rotation=((Math.atan2(this.y-oldY,this.x-oldX))* 180 / Math.PI)%360;
+				this.rotation=_getRot(this.x-_oldX,this.y-_oldY);
 				
 			}
 			
+		}
+		
+		private function _getRot(diffX:Number,diffY:Number):Number
+		{
+			return ((Math.atan2(diffY,diffX))* 180 / Math.PI)%360;
 		}
 		
 		public function spawn(myX:Number,myY:Number,type:String,terminalX:Number=0,terminalY:Number=0):void

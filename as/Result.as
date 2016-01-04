@@ -53,11 +53,11 @@ package
 		{
 			Tween24.tween(_btReplay,0.1).bright(0).play();
 		}
-
-	
+		
+		
 		private function _clickHandler(e:MouseEvent):void
 		{
-
+			
 			this.dispatchEvent(new Event(Const.RESULT_REPLAY)); //イベントを発信
 		}
 		

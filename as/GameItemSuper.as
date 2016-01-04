@@ -5,8 +5,8 @@ package
 	
 	public class GameItemSuper extends MovieClip implements IStepItem
 	{
-		protected var visual:MovieClip;
-		//待機状態かどうか
+		protected var _visual:MovieClip;
+		
 		protected var _isActive:Boolean=false;
 		protected var _isReady:Boolean=true;
 		protected var _speedX:Number=0;
@@ -39,7 +39,7 @@ package
 		
 		protected function _onReset(e:Event):void
 		{
-			visual.gotoAndStop("ldef");
+			_visual.gotoAndStop("ldef");
 			this.sleep();
 		}
 		
@@ -77,7 +77,7 @@ package
 		protected function _hit():void
 		{
 			//サブクラスで、実際の挙動は実装
-			visual.gotoAndPlay("lhit");
+			_visual.gotoAndPlay("lhit");
 		}
 		
 		public function sleep() :void

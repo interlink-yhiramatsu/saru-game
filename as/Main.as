@@ -11,15 +11,11 @@
 	
 	public class Main extends MovieClip implements IScene
 	{
-		
-		//上限
 		private const MAX_ENEMY:int=Const.MAX_ENEMY;
-		
 		private const MAX_HERO_TAMA:int=Const.MAX_HERO_TAMA;
-		//未実装
-		//private const MAX_ENEMY_TAMA:int=100;
 		
-		private var isShot:Boolean=false;
+		//弾を撃つかどうか？
+		private var _isShot:Boolean=false;
 		
 		//スコア系
 		private var _score:Number = 0;
@@ -38,15 +34,10 @@
 		private var _container:Sprite;
 		private var _timeBar:MovieClip;
 		
-		/*注意！！　配列は作り替えないよ*/
 		//敵の配列
 		private var _enemyList:Array=[];
 		//自分の弾丸の配列
 		private var _heroTamaList:Array=[];
-		
-		//敵の弾丸の配列　未実装
-		//private var _enemyTamaList:Array=[];
-		
 		
 		/**
 		 * コンストラクタ
@@ -76,17 +67,17 @@
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
-				var enemy:Enemy=new Enemy(this._hero,i);
-				_container.addChild(enemy);
-				_enemyList.push(enemy);
+				var _currentEnemy:Enemy=new Enemy(this._hero,i);
+				_container.addChild(_currentEnemy);
+				_enemyList.push(_currentEnemy);
 			}
 			
 			
 			for(var k:int=0;k<MAX_HERO_TAMA;k++)
 			{
-				var heroTama:HeroTama=new HeroTama();
-				_container.addChild(heroTama);
-				_heroTamaList.push(heroTama);
+				var _currentHeroTama:HeroTama=new HeroTama();
+				_container.addChild(_currentHeroTama);
+				_heroTamaList.push(_currentHeroTama);
 			}
 			
 			//自分
@@ -109,13 +100,13 @@
 			//===================================================//
 			
 			//ショット
-			isShot=false;
+			_isShot=false;
 			
 			//スコア
 			_score=0;
 			
 			//タイマーをリスタート
-			_enemyProduceTimer=new Timer(700);
+			_enemyProduceTimer=new Timer(Const.ENEMY_PRODUCE_TIME);
 			_enemyProduceTimer.addEventListener(TimerEvent.TIMER,_timerHandler);
 			_enemyProduceTimer.start();
 			
@@ -129,13 +120,13 @@
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
-				var enemy:Enemy=_enemyList[i];
-				enemy.sleep();
+				var _currentEnemy:Enemy=_enemyList[i];
+				_currentEnemy.sleep();
 			}
 			for(var k:int=0;k<MAX_HERO_TAMA;k++)
 			{
-				var heroTama:HeroTama=_heroTamaList[k];
-				heroTama.sleep();
+				var _currentHeroTama:HeroTama=_heroTamaList[k];
+				_currentHeroTama.sleep();
 			}
 			
 			
@@ -152,14 +143,13 @@
 		
 		private function _mouseDownHandler(e:MouseEvent):void
 		{
-			isShot=true;
-			//			_heroShot(this._hero.x,this._hero.y);
+			_heroShot(this._hero.x,this._hero.y);
+			_isShot=true;
 		}
 		
 		private function _mouseUpHandler(e:MouseEvent):void
 		{
-			isShot=false;
-			//			_heroShot(this._hero.x,this._hero.y);
+			_isShot=false;
 		}
 		
 		
@@ -168,16 +158,16 @@
 		{
 			for(var i:int=0;i<MAX_HERO_TAMA;i++)
 			{
-				var heroTama:HeroTama=_heroTamaList[i];
-				if(heroTama.isReady==true)
+				var _currentHeroTama:HeroTama=_heroTamaList[i];
+				if(_currentHeroTama.isReady==true)
 				{
 					
 					if(Utils.getRandom(2)==0)
 					{
-						heroTama.activate(myX+42,myY-13,0);
+						_currentHeroTama.activate(myX,myY,0);
 					}else
 					{
-						heroTama.activate(myX,myY,1);
+						_currentHeroTama.activate(myX,myY,1);
 					}
 					
 					break;
@@ -191,8 +181,8 @@
 		{
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
-				var enemy:Enemy=_enemyList[i];
-				if(enemy.isReady==true)
+				var _currentEnemy:Enemy=_enemyList[i];
+				if(_currentEnemy.isReady==true)
 				{
 					
 					var ran:int=Utils.getRandom(6);
@@ -201,29 +191,29 @@
 					if(ran==0)
 					{
 						
-						enemy.spawn(-10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_DEF);
+						_currentEnemy.spawn(-10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_DEF);
 						
 					}else if(ran==1)
 					{
-						enemy.spawn(Const.WIDTH+10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_KAMIKAZE,this._hero.x,this._hero.y);
+						_currentEnemy.spawn(Const.WIDTH+10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_KAMIKAZE,this._hero.x,this._hero.y);
 						
 						
 					}else if(ran==2)
 					{
-						enemy.spawn(-10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_MISSILE);
+						_currentEnemy.spawn(-10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_MISSILE);
 						
 						
 					}else if(ran==3)
 					{
-						enemy.spawn(Utils.getRandom(Const.WIDTH),Const.HEIGHT+10,Enemy.TYPE_SHOURYU);
+						_currentEnemy.spawn(Utils.getRandom(Const.WIDTH),Const.HEIGHT+10,Enemy.TYPE_SHOURYU);
 						
 					}else if(ran==4)
 					{
-						enemy.spawn(Utils.getRandom(Const.WIDTH),-10,Enemy.TYPE_FUWAFUWA_X,this._hero.x,this._hero.y);
+						_currentEnemy.spawn(Utils.getRandom(Const.WIDTH),-10,Enemy.TYPE_FUWAFUWA_X,this._hero.x,this._hero.y);
 						
 					}else if(ran==5)
 					{
-						enemy.spawn(Const.WIDTH+10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_FUWAFUWA_X,this._hero.x,this._hero.y);
+						_currentEnemy.spawn(Const.WIDTH+10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_FUWAFUWA_X,this._hero.x,this._hero.y);
 						
 					}
 					
@@ -236,7 +226,41 @@
 		
 		private function _timerHandler(e:TimerEvent):void
 		{
-			_produceEnemy();
+			//後半は増える
+			if(this._currentTime>GAME_TIME*0.8)
+			{
+				
+				_produceEnemy();
+				
+			}else　if(this._currentTime>GAME_TIME*0.6)
+			{
+				
+				_produceEnemy();
+				_produceEnemy();
+				
+			}else　if(this._currentTime>GAME_TIME*0.4)
+			{
+				
+				_produceEnemy();
+				_produceEnemy();
+				_produceEnemy();
+			}else　if(this._currentTime>GAME_TIME*0.2)
+			{
+				
+				_produceEnemy();
+				_produceEnemy();
+				_produceEnemy();
+				_produceEnemy();
+			}else
+			{
+				
+				_produceEnemy();
+				_produceEnemy();
+				_produceEnemy();
+				_produceEnemy();
+				_produceEnemy();
+			}
+			
 		}
 		
 		
@@ -244,7 +268,7 @@
 		{
 			
 			//打ちっ放し判定
-			if(isShot==true&&(_currentTime%3==0))
+			if(_isShot==true&&(_currentTime%3==0))
 			{
 				_heroShot(this._hero.x,this._hero.y);
 			}
@@ -283,14 +307,14 @@
 			
 			//敵と自分の弾丸の判定&敵と自分の衝突判定
 			
-			var currentEnemy:Enemy;
-			var currentHeroTama:HeroTama;
+			var _currentEnemy:Enemy;
+			var _currentHeroTama:HeroTama;
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
-				currentEnemy=_enemyList[i];
+				_currentEnemy=_enemyList[i];
 				
-				if(_hitTest(currentEnemy,this._hero))
+				if(_hitTest(_currentEnemy,this._hero))
 				{
 					trace("自分にあたった");
 					if(!Const.DEBUG)_onLoseEnd();
@@ -299,18 +323,18 @@
 				
 				for(var j:int=0;j<MAX_HERO_TAMA;j++)
 				{
-					currentHeroTama=_heroTamaList[j];
+					_currentHeroTama=_heroTamaList[j];
 					
-					if(_hitTest(currentEnemy,currentHeroTama))
+					if(_hitTest(_currentEnemy,_currentHeroTama))
 					{
 						
-						if(currentEnemy.isActive==true&&currentHeroTama.isActive==true)
+						if(_currentEnemy.isActive==true&&_currentHeroTama.isActive==true)
 						{
 							//trace("敵に自分の弾丸があたった");
 							_score++;
-							trace(this+"スコア： "+_score);
-							currentEnemy.hit();
-							currentHeroTama.hit();
+							//trace(this+"スコア： "+_score);
+							_currentEnemy.hit();
+							_currentHeroTama.hit();
 						}
 					}
 				}
@@ -333,21 +357,21 @@
 		
 		private function _hitTest(objA:MovieClip, objB:MovieClip):Boolean
 		{
-			var bool:Boolean;
-			var val1:Number = (objA.x - objB.x) * (objA.x - objB.x) + (objA.y - objB.y) * (objA.y - objB.y);
-			var val2:Number = (objA.radius + objB.radius) * (objA.radius + objB.radius);
+			var _bool:Boolean;
+			var _val1:Number = (objA.x - objB.x) * (objA.x - objB.x) + (objA.y - objB.y) * (objA.y - objB.y);
+			var _val2:Number = (objA.radius + objB.radius) * (objA.radius + objB.radius);
 			
 			
-			if (val1 <= val2)
+			if (_val1 <= _val2)
 			{
-				bool=true;
+				_bool=true;
 			}
 			else
 			{
-				bool=false;
+				_bool=false;
 			}
 			
-			return bool;
+			return _bool;
 			
 		}
 		
@@ -373,6 +397,8 @@
 			//イベント削除
 			this.removeEventListener(Event.ENTER_FRAME, _step);
 			this.removeEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
+			this.removeEventListener(MouseEvent.MOUSE_UP,_mouseUpHandler);
+			
 			
 		}
 		
@@ -388,10 +414,7 @@
 		 */
 		public function end():void
 		{
-			//リセットを実装かしらね
-			//デバッグ用に廃棄
 			
-			//this.visible=false;
 		}
 		
 		/**

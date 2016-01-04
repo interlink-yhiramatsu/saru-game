@@ -51,7 +51,6 @@ package
 		public function start():void
 		{
 			this.visible = true;
-			//this.dispatchEvent(new Event(Const.PRE_START_BT_CLICK)); //スタートボタンを押したことを発信する
 		}
 		
 		/**

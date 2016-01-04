@@ -7,12 +7,11 @@
 		
 		private var _pre:Pre;
 		private var _main:Main;
-		//private var rule:Rule;
 		private var _result:Result;
 		private var _maku:MovieClip;
 		
 		
-		private var _status:int=0;
+		private var _sceneStatus:int=0;
 		
 		/**
 		 * コンストラクタ
@@ -31,10 +30,7 @@
 			_main = new Main();
 			stage.addChild(_main);
 			_main.addEventListener(Const.MAIN_END, _sceneChange);
-			
-			//			rule = new Rule();
-			//			rule.addEventListener(Const.RULE_START, onRuleStartHandler);
-			
+
 			_result = new Result();
 			stage.addChild(_result);
 			_result.addEventListener(Const.RESULT_REPLAY, _sceneChange);
@@ -44,9 +40,7 @@
 			_maku=new Maku();
 			stage.addChild(_maku);
 			
-			
 			_maku.addEventListener(Const.MAKU_CHANGE, _onMakuChangeHandler);
-			//_maku.addEventListener(Const.MAIN_END, _onMakuEndHandler);
 			
 			_pre.start();
 		}
@@ -58,49 +52,24 @@
 		
 		private function _onMakuChangeHandler(e:Event):void
 		{
-			if(_status==0)
+			if(_sceneStatus==0)
 			{
 				_pre.end();
 				_main.start();
-				_status=1;
-			}else if(_status==1)
+				_sceneStatus=1;
+			}else if(_sceneStatus==1)
 			{
 				_main.end();
 				_result.start();
 				_result.showScore(_main.score);
-				_status=2;
-			}else if(_status==2)
+				_sceneStatus=2;
+			}else if(_sceneStatus==2)
 			{
 				_main.start();
 				_result.end();
-				_status=1;
+				_sceneStatus=1;
 			}
 		}
-		
-//		private function _onPreStartHandler(e:Event):void
-//		{
-//			_pre.end();
-//			_main.start();
-//		}
-//		
-//		private function _onMainEndHandler(e:Event):void
-//		{
-//			_main.end();
-//			_result.start();
-//			_result.showScore(_main.score);
-//		}
-		
-//		private function onRuleStartHandler(e:Event):void
-//		{
-//			
-//		}
-		
-//		private function _onResultReplayHandler(e:Event):void
-//		{
-//			_main.start();
-//			_result.end();
-//		}
-		
 
 		
 	}
