@@ -1,6 +1,7 @@
 package
 {
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	
 	public class GameItemSuper extends MovieClip implements IStepItem
 	{
@@ -8,12 +9,14 @@ package
 		//待機状態かどうか
 		protected var _isActive:Boolean=false;
 		protected var _isReady:Boolean=true;
+		protected var _speedX:Number=0;
+		protected var _speedY:Number=0;
 		
 		protected var _radius:Number=10;
 		
 		public function GameItemSuper()
 		{
-			init();
+			_init();
 			this.sleep();
 		}
 		
@@ -27,11 +30,17 @@ package
 			return _isReady;
 		}
 
-		protected function init():void{}
+		protected function _init():void{}
 		
 		public function get radius():Number
 		{
 			return _radius;
+		}
+		
+		protected function _onReset(e:Event):void
+		{
+			visual.gotoAndStop("ldef");
+			this.sleep();
 		}
 		
 		public function step():void
@@ -44,9 +53,9 @@ package
 		
 		protected function _step():void
 		{
-			//サブクラスで、実際の挙動は実装
+			this.x+=_speedX;
+			this.y+=_speedY;	
 		}
-		
 		
 		
 		public function activate(myX:Number,myY:Number,type:int=0) :void
@@ -57,8 +66,6 @@ package
 			_isReady=false;
 			
 		}
-		
-	
 		
 		public function hit() :void
 		{
@@ -95,12 +102,6 @@ package
 			return bool;
 		}
 		
-		
-		
-		public function destroy():void
-		{
-			//実装しなくてもいい
-			//MovieClip(this.parent).removeChild(this);
-		}
+
 	}
 }

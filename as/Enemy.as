@@ -31,20 +31,15 @@ package
 		
 		}
 		
-		override protected function init():void
+		override protected function _init():void
 		{
 			_radius=25;
 			visual=new HitsujiVisual();
 			this.addChild(visual);
-			visual.addEventListener(Const.HIT_ANIM_END,onReset);
+			visual.addEventListener(Const.HIT_ANIM_END,_onReset);
 			
 		}
 		
-		private function onReset(e:Event):void
-		{
-			visual.gotoAndStop("ldef");
-			this.sleep();
-		}
 		
 		override protected function _step():void
 		{
@@ -104,11 +99,6 @@ package
 			
 		}
 		
-//		override protected function _hit():void
-//		{
-//			visual.gotoAndPlay("lhit");
-//		}
-
 		public function spawn(myX:Number,myY:Number,type:String,terminalX:Number=0,terminalY:Number=0):void
 		{
 			super.activate(myX,myY);

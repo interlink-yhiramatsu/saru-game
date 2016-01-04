@@ -17,6 +17,8 @@ package
 		public static const MAX_ENEMY:int=30;
 		//自分の弾丸の上限
 		public static const MAX_HERO_TAMA:int=10;
+		//スピード
+		public static const HERO_TAMA_SPEED:Number=15;
 		
 		//イベント名を定義
 		public static const PRE_START_BT_CLICK:String = "preStartBtClick";

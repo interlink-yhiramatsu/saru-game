@@ -5,9 +5,7 @@ package
 	public class HeroTama extends GameItemSuper
 	{
 		
-		protected var _mySpeed:Number=15;
-		protected var _speedX:Number=0;
-		protected var _speedY:Number=0;
+		private var _heroTamaSpeed:Number=Const.HERO_TAMA_SPEED;
 		
 		
 		public function HeroTama()
@@ -15,29 +13,16 @@ package
 			super();
 		}
 		
-		override protected function init():void
+		override protected function _init():void
 		{
 			visual=new TamaVisual();
 			visual.x -= visual.width/2;
 			visual.y -= visual.height/2;
 			this.addChild(visual);
-			visual.addEventListener(Const.HIT_ANIM_END,onReset);
+			visual.addEventListener(Const.HIT_ANIM_END,_onReset);
 			
 		}
-		
-		private function onReset(e:Event):void
-		{
-			visual.gotoAndStop("ldef");
-			this.sleep();
-		}
-		
-		override protected function _hit():void
-		{
-			visual.gotoAndPlay("lhit");
-		}
-		
-		
-		
+
 		override public function activate(myX:Number,myY:Number,type:int=0) :void
 		{
 			
@@ -45,20 +30,12 @@ package
 			
 			if(type==0)
 			{
-				_speedX=_mySpeed;
+				_speedX=_heroTamaSpeed;
 			}else if(type==1)
 			{
-				_speedX=-_mySpeed;
+				_speedX=-_heroTamaSpeed;
 			}
 		}
-		
-		override protected function _step():void
-		{
-			this.x+=_speedX;
-			this.y+=_speedY;	
-			
-		}
-		
-		
+
 	}
 }

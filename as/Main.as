@@ -124,11 +124,11 @@
 			_timeBar["time_bar"].scaleX=1;
 			
 			//インスタンスの状態を初期化
-			
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //			this._hero.x=Const.WIDTH/2;
 //			this._hero.y=Const.HEIGHT/2;
 			
-			this._hero.activate(Const.WIDTH/2,Const.HEIGHT);
+			//this._hero.activate(Const.WIDTH/2,Const.HEIGHT);
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
@@ -362,7 +362,9 @@
 		private function _onLoseEnd():void
 		{
 			//ヒーローの爆発
-			this._hero.hit();
+			//this._hero.hit();
+			//仮
+			_onEnd();
 		}
 		
 		private function _onHeroHitAnimEnd(e:Event):void

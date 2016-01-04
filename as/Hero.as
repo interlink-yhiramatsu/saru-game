@@ -15,7 +15,7 @@
 			
 		}
 		
-		override protected function init():void
+		override protected function _init():void
 		{
 			_radius=45;
 			visual=this["heroVisual"];
