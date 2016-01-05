@@ -52,22 +52,22 @@
 			//最初の一回だけでの処理を記載
 			
 			
-			this.visible = false;
+			visible = false;
 			
 			//自分
-			this._hero = new Hero();
-			this._hero.addEventListener(Const.HERO_HIT_ANIM_END,_onHeroHitAnimEnd);
+			_hero = new Hero();
+			_hero.mc.addEventListener(Const.HERO_HIT_ANIM_END,_onHeroHitAnimEnd);
 			
 			//インスタンスを先に生成
 			var _bg:MovieClip=new BG();
-			this.addChild(_bg);
+			addChild(_bg);
 			
 			_container=new Sprite();
-			this.addChild(_container);
+			addChild(_container);
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
-				var _currentEnemy:Enemy=new Enemy(this._hero,i);
+				var _currentEnemy:Enemy=new Enemy(_hero.mc,i);
 				_container.addChild(_currentEnemy);
 				_enemyList.push(_currentEnemy);
 			}
@@ -76,17 +76,15 @@
 			for(var k:int=0;k<MAX_HERO_TAMA;k++)
 			{
 				var _currentHeroTama:HeroTama=new HeroTama();
-				_container.addChild(_currentHeroTama);
+				_container.addChild(_currentHeroTama.mc);
 				_heroTamaList.push(_currentHeroTama);
 			}
 			
 			//自分
-			_container.addChild(_hero);
+			_container.addChild(_hero.mc);
 			
 			_timeBar=new TimeBar();
 			_container.addChild(_timeBar);
-			
-			
 			
 		}
 		
@@ -116,8 +114,8 @@
 			
 			//インスタンスの状態を初期化
 
-//			this._hero.reset(Const.WIDTH/2,Const.HEIGHT/2);
-			this._hero.reset(0,Const.HEIGHT/2);
+//			_hero.reset(Const.WIDTH/2,Const.HEIGHT/2);
+			_hero.reset(0,Const.HEIGHT/2);
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
@@ -133,18 +131,18 @@
 			
 			
 			//イベント追加
-			this.addEventListener(Event.ENTER_FRAME, _step);
-			this.addEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
-			this.addEventListener(MouseEvent.MOUSE_UP,_mouseUpHandler);
+			addEventListener(Event.ENTER_FRAME, _step);
+			addEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
+			addEventListener(MouseEvent.MOUSE_UP,_mouseUpHandler);
 			
 			//この画面を表示
-			this.visible = true;
+			visible = true;
 			
 		}
 		
 		private function _mouseDownHandler(e:MouseEvent):void
 		{
-			_heroShot(this._hero.x,this._hero.y);
+			_heroShot(_hero.mc.x,_hero.mc.y);
 			_isShot=true;
 		}
 		
@@ -196,7 +194,7 @@
 						
 					}else if(ran==1)
 					{
-						_currentEnemy.spawn(Const.WIDTH+10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_KAMIKAZE,this._hero.x,this._hero.y);
+						_currentEnemy.spawn(Const.WIDTH+10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_KAMIKAZE,_hero.mc.x,_hero.mc.y);
 						
 						
 					}else if(ran==2)
@@ -210,11 +208,11 @@
 						
 					}else if(ran==4)
 					{
-						_currentEnemy.spawn(Utils.getRandom(Const.WIDTH),-10,Enemy.TYPE_FUWAFUWA_X,this._hero.x,this._hero.y);
+						_currentEnemy.spawn(Utils.getRandom(Const.WIDTH),-10,Enemy.TYPE_FUWAFUWA_X,_hero.mc.x,_hero.mc.y);
 						
 					}else if(ran==5)
 					{
-						_currentEnemy.spawn(Const.WIDTH+10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_FUWAFUWA_X,this._hero.x,this._hero.y);
+						_currentEnemy.spawn(Const.WIDTH+10,Utils.getRandom(Const.HEIGHT),Enemy.TYPE_FUWAFUWA_X,_hero.mc.x,_hero.mc.y);
 						
 					}
 					
@@ -228,24 +226,24 @@
 		private function _timerHandler(e:TimerEvent):void
 		{
 			//後半は増える
-			if(this._currentTime>GAME_TIME*0.8)
+			if(_currentTime>GAME_TIME*0.8)
 			{
 				
 				_produceEnemy();
 				
-			}else　if(this._currentTime>GAME_TIME*0.6)
+			}else　if(_currentTime>GAME_TIME*0.6)
 			{
 				
 				_produceEnemy();
 				_produceEnemy();
 				
-			}else　if(this._currentTime>GAME_TIME*0.4)
+			}else　if(_currentTime>GAME_TIME*0.4)
 			{
 				
 				_produceEnemy();
 				_produceEnemy();
 				_produceEnemy();
-			}else　if(this._currentTime>GAME_TIME*0.2)
+			}else　if(_currentTime>GAME_TIME*0.2)
 			{
 				
 				_produceEnemy();
@@ -271,7 +269,7 @@
 			//打ちっ放し判定
 			if(_isShot==true&&(_currentTime%3==0))
 			{
-				_heroShot(this._hero.x,this._hero.y);
+				_heroShot(_hero.mc.x,_hero.mc.y);
 			}
 			
 			
@@ -290,7 +288,7 @@
 			/*最初にまとめて移動*/
 			
 			//自分の移動
-			this._hero.step();
+			_hero.step();
 			//自分の弾丸の移動
 			_heroTamaList.forEach(__step);
 			//羊の移動
@@ -315,7 +313,9 @@
 			{
 				_currentEnemy=_enemyList[i];
 				
-				if(_currentEnemy.isActive==true&&_hitTest(_currentEnemy,this._hero))
+//				if(_currentEnemy.isActive==true&&_hitTest(_currentEnemy,_hero))
+				
+				if(_currentEnemy.isActive==true&&_hero.circleHitTest(_currentEnemy.x,_currentEnemy.y,_currentEnemy.radius))
 				{
 					trace("自分にあたった");
 					if(!Const.DEBUG)_onLoseEnd();
@@ -326,7 +326,10 @@
 				{
 					_currentHeroTama=_heroTamaList[j];
 					
-					if(_hitTest(_currentEnemy,_currentHeroTama))
+					//敵と弾丸の衝突判定
+//					if(_hitTest(_currentEnemy,_currentHeroTama.mc))
+					
+					if(_currentHeroTama.circleHitTest(_currentEnemy.x,_currentEnemy.y,_currentEnemy.radius))
 					{
 						
 						if(_currentEnemy.isActive==true&&_currentHeroTama.isActive==true)
@@ -342,12 +345,26 @@
 			}
 		}
 		
-		private function __step(item:IStepItem,index:int, array:Array):void
+//		private function __step(item:IStepItem,index:int, array:Array):void
+//		{
+//			item.step();
+//		}
+//		
+//		private function __outTest(item:GameItemSuper,index:int, array:Array):void
+//		{
+//			if(item.outTest(Const.WIDTH,Const.HEIGHT))
+//			{
+//				item.sleep();
+//			}
+//		}
+		
+		
+		private function __step(item:*,index:int, array:Array):void
 		{
 			item.step();
 		}
 		
-		private function __outTest(item:GameItemSuper,index:int, array:Array):void
+		private function __outTest(item:*,index:int, array:Array):void
 		{
 			if(item.outTest(Const.WIDTH,Const.HEIGHT))
 			{
@@ -379,7 +396,7 @@
 		private function _onTimeupEnd():void
 		{
 			_onEnd();
-			this.dispatchEvent(new Event(Const.MAIN_END));
+			dispatchEvent(new Event(Const.MAIN_END));
 		}
 		private function _onLoseEnd():void
 		{
@@ -396,9 +413,9 @@
 			_enemyProduceTimer.removeEventListener(TimerEvent.TIMER,_timerHandler);
 			
 			//イベント削除
-			this.removeEventListener(Event.ENTER_FRAME, _step);
-			this.removeEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
-			this.removeEventListener(MouseEvent.MOUSE_UP,_mouseUpHandler);
+			removeEventListener(Event.ENTER_FRAME, _step);
+			removeEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
+			removeEventListener(MouseEvent.MOUSE_UP,_mouseUpHandler);
 			
 			
 		}
@@ -406,7 +423,7 @@
 		private function _onHeroHitAnimEnd(e:Event):void
 		{
 			//終了を通知
-			this.dispatchEvent(new Event(Const.MAIN_END));
+			dispatchEvent(new Event(Const.MAIN_END));
 		}
 		
 		

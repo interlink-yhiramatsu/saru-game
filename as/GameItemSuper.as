@@ -5,20 +5,32 @@ package
 	
 	public class GameItemSuper extends MovieClip implements IStepItem
 	{
-		protected var _visual:MovieClip;
 		
+		/*===========================================*/
+		//ここから　　super
+		/*===========================================*/
+		
+		
+		protected var _visual:MovieClip;
 		protected var _isActive:Boolean=false;
 		protected var _isReady:Boolean=true;
 		protected var _speedX:Number=0;
 		protected var _speedY:Number=0;
-		
 		protected var _radius:Number=10;
+		
+		/*===========================================*/
+		//ここまで　　super
+		/*===========================================*/
 		
 		public function GameItemSuper()
 		{
 			_init();
 			this.sleep();
 		}
+		
+		/*===========================================*/
+		//ここから　　super
+		/*===========================================*/
 		
 		public function get isActive():Boolean
 		{
@@ -101,7 +113,9 @@ package
 			//実装
 			return bool;
 		}
-		
+		/*===========================================*/
+		//ここまで　　super
+		/*===========================================*/
 
 	}
 }
