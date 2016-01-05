@@ -60,6 +60,14 @@ package
 				//回転
 				mc.rotation=_getRot(mc.x-_oldX,mc.y-_oldY);
 				
+				if(mc.rotation>90&&mc.rotation<270)
+				{
+					mc.scaleY=-1;
+				}else
+				{
+					mc.scaleY=1;
+				}
+				
 				
 			}else if(_enemyType==TYPE_MISSILE)
 			{
@@ -84,6 +92,14 @@ package
 				//回転
 				mc.rotation=_getRot(mc.x-_oldX,mc.y-_oldY);
 				
+				if(mc.rotation>90&&mc.rotation<270)
+				{
+					mc.scaleY=-1;
+				}else
+				{
+					mc.scaleY=1;
+				}
+				
 			}else if(_enemyType==TYPE_FUWAFUWA_Y)
 			{
 				mc.x+=(_terminalX-mc.x)/30;
@@ -92,7 +108,17 @@ package
 				//回転
 				mc.rotation=_getRot(mc.x-_oldX,mc.y-_oldY);
 				
+				if(mc.rotation>90&&mc.rotation<270)
+				{
+					mc.scaleY=-1;
+				}else
+				{
+					mc.scaleY=1;
+				}
+				
 			}
+			
+			
 		}
 		
 		private function _getRot(diffX:Number,diffY:Number):Number

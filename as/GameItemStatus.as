@@ -64,6 +64,8 @@ package
 			_isActive=false;
 			_isReady=true;
 			mc.rotation=0;
+			mc.scaleX=1;
+			mc.scaleY=1;
 		}
 		
 		public function outTest(w:Number,h:Number):Boolean

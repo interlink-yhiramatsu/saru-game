@@ -11,7 +11,7 @@ package
 		//ここから　　HeroTama特有
 		/*===========================================*/
 		private const HERO_TAMA_SPEED:Number=Const.HERO_TAMA_SPEED;
-		private const TAMA_DIFF_A_X:Number=42;
+		private const TAMA_DIFF_A_X:Number=35;
 		private const TAMA_DIFF_A_Y:Number=-11;
 		private const TAMA_DIFF_B_X:Number=-8;
 		private const TAMA_DIFF_B_Y:Number=8;
