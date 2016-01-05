@@ -6,33 +6,30 @@ package
 	
 	import a24.tween.Tween24;
 	
-	public class Pre extends MovieClip
+	public class Pre
 	{	
 		
+		public var container:MovieClip=new PreVisual();
 		private var _btStart:MovieClip;
-		
-		
-		/**
-		 * コンストラクタ
-		 */
+
 		public function Pre()
 		{
 			_init();
-
+			
 		}
 		
 		private function _init() :void
 		{
-			_btStart=this["start_bt"];
+			_btStart=container["start_bt"];
 			_btStart.buttonMode=true;
 			_btStart.addEventListener(MouseEvent.CLICK, _clickHandler);
 			_btStart.addEventListener(MouseEvent.ROLL_OVER, _overHandler);
 			_btStart.addEventListener(MouseEvent.ROLL_OUT, _outHandler);
 		}
-	
+		
 		private function _clickHandler(e:MouseEvent):void
 		{
-			this.dispatchEvent(new Event(Const.PRE_START_BT_CLICK)); //イベントを発信
+			container.dispatchEvent(new Event(Const.PRE_START_BT_CLICK)); //イベントを発信
 		}
 		
 		private function _overHandler(e:MouseEvent):void
@@ -43,14 +40,14 @@ package
 		{
 			Tween24.tween(_btStart,0.1).bright(0).play();
 		}
-
+		
 		
 		/**
 		 * 画面を表示する
 		 */
 		public function start():void
 		{
-			this.visible = true;
+			container.visible = true;
 		}
 		
 		/**
@@ -58,7 +55,7 @@ package
 		 */
 		public function end():void
 		{
-			this.visible = false;
+			container.visible = false;
 		}
 		
 	}

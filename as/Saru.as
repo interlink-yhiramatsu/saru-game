@@ -24,16 +24,16 @@
 		private function _init():void
 		{
 			_pre = new Pre();
-			stage.addChild(_pre);
-			_pre.addEventListener(Const.PRE_START_BT_CLICK, _sceneChange);
+			stage.addChild(_pre.container);
+			_pre.container.addEventListener(Const.PRE_START_BT_CLICK, _sceneChange);
 			
 			_main = new Main();
-			stage.addChild(_main);
-			_main.addEventListener(Const.MAIN_END, _sceneChange);
+			stage.addChild(_main.container);
+			_main.container.addEventListener(Const.MAIN_END, _sceneChange);
 
 			_result = new Result();
-			stage.addChild(_result);
-			_result.addEventListener(Const.RESULT_REPLAY, _sceneChange);
+			stage.addChild(_result.container);
+			_result.container.addEventListener(Const.RESULT_REPLAY, _sceneChange);
 			
 			
 			//演出用の幕

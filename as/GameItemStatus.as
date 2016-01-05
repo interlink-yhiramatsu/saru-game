@@ -11,11 +11,10 @@ package
 		
 		public var mc:MovieClip;
 		
-		public function GameItemStatus(mc:MovieClip,radius:Number)
+		public function GameItemStatus(targetMC:MovieClip,radius:Number)
 		{
-			this.mc=mc;
-			this._radius=radius;
-			mc.radius=radius;
+			mc=targetMC;
+			_radius=radius;
 			mc.addEventListener(Const.VISUAL_HIT_ANIM_END,_onReset);
 		}
 		private function _onReset(e:Event):void
@@ -80,12 +79,12 @@ package
 			return bool;
 		}
 		
-		public function circleHitTest(stats:GameItemStatus):Boolean
+		public function circleHitTest(currentStatus:GameItemStatus):Boolean
 		{
 			
-			var targetX:Number=stats.mc.x;
-			var targetY:Number=stats.mc.y;
-			var targetRadius:Number=stats._radius;
+			var targetX:Number=currentStatus.mc.x;
+			var targetY:Number=currentStatus.mc.y;
+			var targetRadius:Number=currentStatus._radius;
 			
 			
 			//引数

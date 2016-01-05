@@ -101,9 +101,9 @@ package
 			return gameItemStatus.outTest(w,h);
 		}
 		
-		public function circleHitTest(targetStats:GameItemStatus):Boolean
+		public function circleHitTest(targetStatus:GameItemStatus):Boolean
 		{
-			return gameItemStatus.circleHitTest(targetStats);
+			return gameItemStatus.circleHitTest(targetStatus);
 		}
 		
 		/*===========================================*/

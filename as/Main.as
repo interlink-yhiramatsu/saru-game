@@ -1,6 +1,5 @@
 ﻿package  {
 	
-	import flash.display.MorphShape;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -9,7 +8,7 @@
 	import flash.utils.Timer;
 	
 	
-	public class Main extends MovieClip
+	public class Main
 	{
 		private const MAX_ENEMY:int=Const.MAX_ENEMY;
 		private const MAX_HERO_TAMA:int=Const.MAX_HERO_TAMA;
@@ -30,8 +29,6 @@
 		
 		//インスタンス系
 		private var _hero:Hero;
-		
-		private var _container:Sprite;
 		private var _timeBar:MovieClip;
 		
 		//敵の配列
@@ -39,11 +36,11 @@
 		//自分の弾丸の配列
 		private var _heroTamaList:Array=[];
 		
-		/**
-		 * コンストラクタ
-		 */
+		public var container:Sprite;
+		
 		public function Main() {
 			
+//			_stage=stage;
 			_init();
 		}
 		
@@ -51,24 +48,23 @@
 		{
 			//最初の一回だけでの処理を記載
 			
-			
-			visible = false;
+			//インスタンスを先に生成
+			container=new Sprite();
+			container.visible = false;
 			
 			//自分
 			_hero = new Hero();
 			_hero.mc.addEventListener(Const.HERO_HIT_ANIM_END,_onHeroHitAnimEnd);
 			
-			//インスタンスを先に生成
-			var _bg:MovieClip=new BG();
-			addChild(_bg);
 			
-			_container=new Sprite();
-			addChild(_container);
+			
+			var _bg:MovieClip=new BG();
+			container.addChild(_bg);
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
 				var _currentEnemy:Enemy=new Enemy(_hero.mc);
-				_container.addChild(_currentEnemy.mc);
+				container.addChild(_currentEnemy.mc);
 				_enemyList.push(_currentEnemy);
 			}
 			
@@ -76,15 +72,15 @@
 			for(var k:int=0;k<MAX_HERO_TAMA;k++)
 			{
 				var _currentHeroTama:HeroTama=new HeroTama();
-				_container.addChild(_currentHeroTama.mc);
+				container.addChild(_currentHeroTama.mc);
 				_heroTamaList.push(_currentHeroTama);
 			}
 			
 			//自分
-			_container.addChild(_hero.mc);
+			container.addChild(_hero.mc);
 			
 			_timeBar=new TimeBar();
-			_container.addChild(_timeBar);
+			container.addChild(_timeBar);
 			
 		}
 		
@@ -131,12 +127,12 @@
 			
 			
 			//イベント追加
-			addEventListener(Event.ENTER_FRAME, _step);
-			addEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
-			addEventListener(MouseEvent.MOUSE_UP,_mouseUpHandler);
+			container.addEventListener(Event.ENTER_FRAME, _step);
+			container.addEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
+			container.addEventListener(MouseEvent.MOUSE_UP,_mouseUpHandler);
 			
 			//この画面を表示
-			visible = true;
+			container.visible = true;
 			
 		}
 		
@@ -335,7 +331,7 @@
 						{
 							//trace("敵に自分の弾丸があたった");
 							_score++;
-							//trace(this+"スコア： "+_score);
+							
 							_currentEnemy.hit();
 							_currentHeroTama.hit();
 						}
@@ -382,7 +378,7 @@
 		private function _onTimeupEnd():void
 		{
 			_onEnd();
-			dispatchEvent(new Event(Const.MAIN_END));
+			container.dispatchEvent(new Event(Const.MAIN_END));
 		}
 		private function _onLoseEnd():void
 		{
@@ -399,9 +395,9 @@
 			_enemyProduceTimer.removeEventListener(TimerEvent.TIMER,_timerHandler);
 			
 			//イベント削除
-			removeEventListener(Event.ENTER_FRAME, _step);
-			removeEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
-			removeEventListener(MouseEvent.MOUSE_UP,_mouseUpHandler);
+			container.removeEventListener(Event.ENTER_FRAME, _step);
+			container.removeEventListener(MouseEvent.MOUSE_DOWN,_mouseDownHandler);
+			container.removeEventListener(MouseEvent.MOUSE_UP,_mouseUpHandler);
 			
 			
 		}
@@ -409,7 +405,7 @@
 		private function _onHeroHitAnimEnd(e:Event):void
 		{
 			//終了を通知
-			dispatchEvent(new Event(Const.MAIN_END));
+			container.dispatchEvent(new Event(Const.MAIN_END));
 		}
 		
 		

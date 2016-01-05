@@ -40,60 +40,59 @@ package
 		//override 
 		private function _step():void
 		{
-			var _oldX:Number=this.mc.x;
-			var _oldY:Number=this.mc.y;
+			var _oldX:Number=mc.x;
+			var _oldY:Number=mc.y;
 			
 			if(_enemyType==TYPE_DEF)
 			{
-				this.mc.x+=_speed;
+				mc.x+=_speed;
 				
 			}else if(_enemyType==TYPE_KAMIKAZE)
 			{
-				this.mc.x+=(_terminalX-this.mc.x)/15;
-				this.mc.y+=(_terminalY-this.mc.y)/15;
+				mc.x+=(_terminalX-mc.x)/15;
+				mc.y+=(_terminalY-mc.y)/15;
 				
-				if(Math.abs(this.mc.x-_terminalX)<10&&Math.abs(this.mc.y-_terminalY)<10)
+				if(Math.abs(mc.x-_terminalX)<10&&Math.abs(mc.y-_terminalY)<10)
 				{
 					_terminalX=Utils.getRandom(Const.WIDTH);
 					_terminalY=Utils.getRandom(Const.HEIGHT);
 				}
 				//回転
-				this.mc.rotation=_getRot(this.mc.x-_oldX,this.mc.y-_oldY);
+				mc.rotation=_getRot(mc.x-_oldX,mc.y-_oldY);
 				
 				
 			}else if(_enemyType==TYPE_MISSILE)
 			{
-				this.mc.x+=(this._traceTarget.x-this.mc.x)/30;
-				this.mc.y+=(this._traceTarget.y-this.mc.y)/30;
+				mc.x+=(_traceTarget.x-mc.x)/30;
+				mc.y+=(_traceTarget.y-mc.y)/30;
 				//回転
-				this.mc.rotation=_getRot(this.mc.x-_oldX,this.mc.y-_oldY);
+				mc.rotation=_getRot(mc.x-_oldX,mc.y-_oldY);
 				
 				
 			}else if(_enemyType==TYPE_SHOURYU)
 			{
-				this.mc.x+=5;
-				this.mc.y+=-5;
+				mc.x+=5;
+				mc.y+=-5;
 				
 				//回転
-				this.mc.rotation=_getRot(this.mc.x-_oldX,this.mc.y-_oldY);
+				mc.rotation=_getRot(mc.x-_oldX,mc.y-_oldY);
 				
 			}else if(_enemyType==TYPE_FUWAFUWA_X)
 			{
-				this.mc.x+=(this._traceTarget.x-this.mc.x)/(Utils.getRandom(20)+20);
-				this.mc.y+=(this._terminalY-this.mc.y)/30;
+				mc.x+=(_traceTarget.x-mc.x)/(Utils.getRandom(20)+20);
+				mc.y+=(_terminalY-mc.y)/30;
 				//回転
-				this.mc.rotation=_getRot(this.mc.x-_oldX,this.mc.y-_oldY);
+				mc.rotation=_getRot(mc.x-_oldX,mc.y-_oldY);
 				
 			}else if(_enemyType==TYPE_FUWAFUWA_Y)
 			{
-				this.mc.x+=(this._terminalX-this.mc.x)/30;
-				this.mc.y+=(this._traceTarget.y-this.mc.y)/(Utils.getRandom(20)+20);
+				mc.x+=(_terminalX-mc.x)/30;
+				mc.y+=(_traceTarget.y-mc.y)/(Utils.getRandom(20)+20);
 				
 				//回転
-				this.mc.rotation=_getRot(this.mc.x-_oldX,this.mc.y-_oldY);
+				mc.rotation=_getRot(mc.x-_oldX,mc.y-_oldY);
 				
 			}
-			
 		}
 		
 		private function _getRot(diffX:Number,diffY:Number):Number
@@ -154,9 +153,9 @@ package
 			return gameItemStatus.outTest(w,h);
 		}
 		
-		public function circleHitTest(targetStats:GameItemStatus):Boolean
+		public function circleHitTest(targetStatus:GameItemStatus):Boolean
 		{
-			return gameItemStatus.circleHitTest(targetStats);
+			return gameItemStatus.circleHitTest(targetStatus);
 		}
 		
 		/*===========================================*/
