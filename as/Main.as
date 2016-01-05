@@ -9,7 +9,7 @@
 	import flash.utils.Timer;
 	
 	
-	public class Main extends MovieClip implements IScene
+	public class Main extends MovieClip
 	{
 		private const MAX_ENEMY:int=Const.MAX_ENEMY;
 		private const MAX_HERO_TAMA:int=Const.MAX_HERO_TAMA;
@@ -67,8 +67,8 @@
 			
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
-				var _currentEnemy:Enemy=new Enemy(_hero.mc,i);
-				_container.addChild(_currentEnemy);
+				var _currentEnemy:Enemy=new Enemy(_hero.mc);
+				_container.addChild(_currentEnemy.mc);
 				_enemyList.push(_currentEnemy);
 			}
 			
@@ -158,7 +158,7 @@
 			for(var i:int=0;i<MAX_HERO_TAMA;i++)
 			{
 				var _currentHeroTama:HeroTama=_heroTamaList[i];
-				if(_currentHeroTama.isReady==true)
+				if(_currentHeroTama.getIsReady()==true)
 				{
 					
 					if(Utils.getRandom(2)==0)
@@ -181,7 +181,7 @@
 			for(var i:int=0;i<MAX_ENEMY;i++)
 			{
 				var _currentEnemy:Enemy=_enemyList[i];
-				if(_currentEnemy.isReady==true)
+				if(_currentEnemy.getIsReady()==true)
 				{
 					
 					var ran:int=Utils.getRandom(6);
@@ -313,11 +313,11 @@
 			{
 				_currentEnemy=_enemyList[i];
 				
-//				if(_currentEnemy.isActive==true&&_hitTest(_currentEnemy,_hero))
-				
-				if(_currentEnemy.isActive==true&&_hero.circleHitTest(_currentEnemy.x,_currentEnemy.y,_currentEnemy.radius))
+
+				if(_currentEnemy.getIsActive()==true&&_hero.circleHitTest(_currentEnemy.gameItemStatus))
 				{
-					trace("自分にあたった");
+					//trace("自分にあたった");
+					
 					if(!Const.DEBUG)_onLoseEnd();
 					
 				}
@@ -327,12 +327,11 @@
 					_currentHeroTama=_heroTamaList[j];
 					
 					//敵と弾丸の衝突判定
-//					if(_hitTest(_currentEnemy,_currentHeroTama.mc))
-					
-					if(_currentHeroTama.circleHitTest(_currentEnemy.x,_currentEnemy.y,_currentEnemy.radius))
+
+					if(_currentHeroTama.circleHitTest(_currentEnemy.gameItemStatus))
 					{
 						
-						if(_currentEnemy.isActive==true&&_currentHeroTama.isActive==true)
+						if(_currentEnemy.getIsActive()==true&&_currentHeroTama.getIsActive()==true)
 						{
 							//trace("敵に自分の弾丸があたった");
 							_score++;
@@ -345,20 +344,7 @@
 			}
 		}
 		
-//		private function __step(item:IStepItem,index:int, array:Array):void
-//		{
-//			item.step();
-//		}
-//		
-//		private function __outTest(item:GameItemSuper,index:int, array:Array):void
-//		{
-//			if(item.outTest(Const.WIDTH,Const.HEIGHT))
-//			{
-//				item.sleep();
-//			}
-//		}
-		
-		
+
 		private function __step(item:*,index:int, array:Array):void
 		{
 			item.step();
@@ -373,25 +359,25 @@
 		}
 		
 		
-		private function _hitTest(objA:MovieClip, objB:MovieClip):Boolean
-		{
-			var _bool:Boolean;
-			var _val1:Number = (objA.x - objB.x) * (objA.x - objB.x) + (objA.y - objB.y) * (objA.y - objB.y);
-			var _val2:Number = (objA.radius + objB.radius) * (objA.radius + objB.radius);
-			
-			
-			if (_val1 <= _val2)
-			{
-				_bool=true;
-			}
-			else
-			{
-				_bool=false;
-			}
-			
-			return _bool;
-			
-		}
+//		private function _hitTest(objA:MovieClip, objB:MovieClip):Boolean
+//		{
+//			var _bool:Boolean;
+//			var _val1:Number = (objA.x - objB.x) * (objA.x - objB.x) + (objA.y - objB.y) * (objA.y - objB.y);
+//			var _val2:Number = (objA.radius + objB.radius) * (objA.radius + objB.radius);
+//			
+//			
+//			if (_val1 <= _val2)
+//			{
+//				_bool=true;
+//			}
+//			else
+//			{
+//				_bool=false;
+//			}
+//			
+//			return _bool;
+//			
+//		}
 		
 		private function _onTimeupEnd():void
 		{

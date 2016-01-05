@@ -3,7 +3,7 @@ package
 	public class Const
 	{
 		public static const DEBUG:Boolean=false;
-		public static const VERSION:String="2016.01.04:1.0";
+		public static const VERSION:String="2016.01.05:1.0";
 		public static const AUTHOR:String="higeguma";
 		
 		/*ゲームの基本設定*/

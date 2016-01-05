@@ -3,97 +3,94 @@ package
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
-	public class Enemy extends GameItemSuper
+	public class Enemy
 	{
+		
+		/*===========================================*/
+		//ここから　　Enemy特有
+		/*===========================================*/
 		private var _speed:Number=10;
 		private var _terminalX:Number;
 		private var _terminalY:Number;
 		private var _enemyType:String;
-		
 		private var _traceTarget:MovieClip;
-		
 		public static const TYPE_DEF:String="typeDef";
 		public static const TYPE_KAMIKAZE:String="typeKamikaze";
 		public static const TYPE_SHOURYU:String="typeShouryu";
 		public static const TYPE_MISSILE:String="typeMissile";
 		public static const TYPE_FUWAFUWA_X:String="typeFuwafuwaX";
 		public static const TYPE_FUWAFUWA_Y:String="typeFuwafuwaY";
+		/*===========================================*/
+		//ここまで　　Enemy特有
+		/*===========================================*/
 		
-		// テスト用
-		public var _index:int;
+		//Canvas特有
+		public var gameItemStatus:GameItemStatus;
+		public var mc:MovieClip;
 		
-		public function Enemy(traceTarget:MovieClip,index:int)
+		public function Enemy(traceTarget:MovieClip)
 		{
 			_traceTarget=traceTarget;
-			_index=index;
-			
-			super();
-		
-		}
-		
-		override protected function _init():void
-		{
-			_radius=20;
-			_visual=new HitsujiVisual();
-			this.addChild(_visual);
-			_visual.addEventListener(Const.VISUAL_HIT_ANIM_END,_onReset);
+			mc=new HitsujiVisual();
+			gameItemStatus=new GameItemStatus(mc);
+			gameItemStatus.radius=20;
 			
 		}
 		
-		
-		override protected function _step():void
+		//override 
+		private function _step():void
 		{
-			var _oldX:Number=this.x;
-			var _oldY:Number=this.y;
+			var _oldX:Number=this.mc.x;
+			var _oldY:Number=this.mc.y;
 			
 			if(_enemyType==TYPE_DEF)
 			{
-				this.x+=_speed;
+				this.mc.x+=_speed;
 				
 			}else if(_enemyType==TYPE_KAMIKAZE)
 			{
-				this.x+=(_terminalX-this.x)/15;
-				this.y+=(_terminalY-this.y)/15;
+				this.mc.x+=(_terminalX-this.mc.x)/15;
+				this.mc.y+=(_terminalY-this.mc.y)/15;
 				
-				if(Math.abs(this.x-_terminalX)<10&&Math.abs(this.y-_terminalY)<10)
+				if(Math.abs(this.mc.x-_terminalX)<10&&Math.abs(this.mc.y-_terminalY)<10)
 				{
 					_terminalX=Utils.getRandom(Const.WIDTH);
 					_terminalY=Utils.getRandom(Const.HEIGHT);
 				}
 				//回転
-				this.rotation=_getRot(this.x-_oldX,this.y-_oldY);
-
+				this.mc.rotation=_getRot(this.mc.x-_oldX,this.mc.y-_oldY);
+				
 				
 			}else if(_enemyType==TYPE_MISSILE)
 			{
-				this.x+=(this._traceTarget.x-this.x)/30;
-				this.y+=(this._traceTarget.y-this.y)/30;
+				this.mc.x+=(this._traceTarget.x-this.mc.x)/30;
+				this.mc.y+=(this._traceTarget.y-this.mc.y)/30;
 				//回転
-				this.rotation=_getRot(this.x-_oldX,this.y-_oldY);
+				this.mc.rotation=_getRot(this.mc.x-_oldX,this.mc.y-_oldY);
 				
 				
 			}else if(_enemyType==TYPE_SHOURYU)
 			{
-				this.x+=5;
-				this.y+=-5;
+				this.mc.x+=5;
+				this.mc.y+=-5;
 				
 				//回転
-				this.rotation=_getRot(this.x-_oldX,this.y-_oldY);
+				this.mc.rotation=_getRot(this.mc.x-_oldX,this.mc.y-_oldY);
 				
 			}else if(_enemyType==TYPE_FUWAFUWA_X)
 			{
-				this.x+=(this._traceTarget.x-this.x)/(Utils.getRandom(20)+20);
-				this.y+=(this._terminalY-this.y)/30;
+				this.mc.x+=(this._traceTarget.x-this.mc.x)/(Utils.getRandom(20)+20);
+				this.mc.y+=(this._terminalY-this.mc.y)/30;
 				//回転
-				this.rotation=_getRot(this.x-_oldX,this.y-_oldY);
+				this.mc.rotation=_getRot(this.mc.x-_oldX,this.mc.y-_oldY);
 				
 			}else if(_enemyType==TYPE_FUWAFUWA_Y)
 			{
-				this.x+=(this._terminalX-this.x)/30;
-				this.y+=(this._traceTarget.y-this.y)/(Utils.getRandom(20)+20);
+				this.mc.x+=(this._terminalX-this.mc.x)/30;
+				this.mc.y+=(this._traceTarget.y-this.mc.y)/(Utils.getRandom(20)+20);
 				
 				//回転
-				this.rotation=_getRot(this.x-_oldX,this.y-_oldY);
+				this.mc.rotation=_getRot(this.mc.x-_oldX,this.mc.y-_oldY);
 				
 			}
 			
@@ -106,11 +103,64 @@ package
 		
 		public function spawn(myX:Number,myY:Number,type:String,terminalX:Number=0,terminalY:Number=0):void
 		{
-			super.activate(myX,myY);
+			activate(myX,myY);
 			_enemyType=type;
 			_terminalX=terminalX;
 			_terminalY=terminalY;
-
+			
 		}
+		
+		
+		
+		
+		/*===========================================*/
+		//ここからは共通
+		/*===========================================*/
+		
+		public function activate(myX:Number,myY:Number,type:int=0) :void
+		{
+			gameItemStatus.activate(myX,myY,type);
+		}
+		
+		public function sleep() :void
+		{
+			gameItemStatus.sleep();
+		}
+		
+		public function getIsActive():Boolean
+		{
+			return gameItemStatus.isActive;
+		}
+		
+		public function getIsReady():Boolean
+		{
+			return gameItemStatus.isReady;
+		}
+		public function hit() :void
+		{
+			gameItemStatus.hit();
+		}
+		
+		public function step():void
+		{
+			if(gameItemStatus.isActive)
+			{
+				_step();
+			}
+		}
+		
+		public function outTest(w:Number,h:Number):Boolean
+		{
+			return gameItemStatus.outTest(w,h);
+		}
+		
+		public function circleHitTest(targetStats:GameItemStatus):Boolean
+		{
+			return gameItemStatus.circleHitTest(targetStats);
+		}
+		
+		/*===========================================*/
+		//ここまでは共通
+		/*===========================================*/
 	}
 }

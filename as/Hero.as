@@ -8,40 +8,19 @@
 		private const TICK:uint=4;
 		
 		//Canvas特有
-		private var stats:GameItemStas;
+		public var gameItemStatus:GameItemStatus;
 		public var mc:MovieClip;
 		
 		public function Hero()
 		{
 			mc=new HeroVisual();
-			stats=new GameItemStas(mc);
+			gameItemStatus=new GameItemStatus(mc);
+			gameItemStatus.radius=20;
 		}
-		
+
 		/*===========================================*/
-		//ここから　　Hero特有
+		//ここから　　override
 		/*===========================================*/
-		//		override protected function _init():void
-		//		{
-		////			_radius=24;
-		//			_radius=10;
-		//			
-		//			_visual=this["heroVisual"];
-		//			_visual.x -= _visual.width/2;
-		//			_visual.y -= _visual.height/2;
-		//			_visual.addEventListener(Const.VISUAL_HIT_ANIM_END,_onHitEnd);
-		//			
-		//		}
-		
-		//		public function reset(myX:Number,myY:Number):void
-		//		{
-		//			_visual.gotoAndStop("ldef");
-		//			this.activate(myX,myY);
-		//		}
-		//		
-		//		private function _onHitEnd(e:Event):void
-		//		{
-		//			this.dispatchEvent(new Event(Const.HERO_HIT_ANIM_END));
-		//		}
 		
 		public function reset(myX:Number,myY:Number):void
 		{
@@ -49,14 +28,14 @@
 			activate(myX,myY);
 		}
 		
-		public function step():void
+		private function _step():void
 		{
 			mc.x+=(mc.parent.mouseX-mc.x)/TICK;
 			mc.y+=(mc.parent.mouseY-mc.y)/TICK;
 		}
 		
 		/*===========================================*/
-		//ここまで　　Hero特有
+		//ここまで　　override
 		/*===========================================*/
 		
 		
@@ -66,40 +45,44 @@
 		
 		public function activate(myX:Number,myY:Number,type:int=0) :void
 		{
-			stats.activate(myX,myY,type);
+			gameItemStatus.activate(myX,myY,type);
 		}
 		
 		public function sleep() :void
 		{
-			stats.sleep();
+			gameItemStatus.sleep();
 		}
 		
-		public function get isActive():Boolean
+		public function getIsActive():Boolean
 		{
-			return stats.isActive;
+			return gameItemStatus.isActive;
 		}
 		
-		public function get isReady():Boolean
+		public function getIsReady():Boolean
 		{
-			return stats.isReady;
+			return gameItemStatus.isReady;
 		}
 		public function hit() :void
 		{
-			stats.hit();
+			gameItemStatus.hit();
 		}
-		//		public function step():void
-		//		{
-		//			stats.step();
-		//		}
+		
+		public function step():void
+		{
+			if(gameItemStatus.isActive)
+			{
+				_step();
+			}
+		}
 		
 		public function outTest(w:Number,h:Number):Boolean
 		{
-			return stats.outTest(w,h);
+			return gameItemStatus.outTest(w,h);
 		}
 		
-		public function circleHitTest(x:Number,y:Number,radius:Number):Boolean
+		public function circleHitTest(targetStats:GameItemStatus):Boolean
 		{
-			return stats.circleHitTest(x,y,radius);
+			return gameItemStatus.circleHitTest(targetStats);
 		}
 		
 		/*===========================================*/

@@ -3,20 +3,18 @@ package
 	import flash.display.MovieClip;
 	import flash.events.Event;
 
-	public class GameItemStas
+	public class GameItemStatus
 	{
 		
 		public var mc:MovieClip;
 		
 		public var isActive:Boolean=false;
 		public var isReady:Boolean=true;
-		public var speedX:Number=0;
-		public var speedY:Number=0;
-		
+
 		public var radius:Number=10;
 		
 		
-		public function GameItemStas(mc:MovieClip)
+		public function GameItemStatus(mc:MovieClip)
 		{
 			this.mc=mc;
 			mc.radius=radius;
@@ -34,14 +32,14 @@ package
 			sleep();
 		}
 		
-		public function step():void
-		{
-			if(isActive)
-			{
-				mc.x+=speedX;
-				mc.y+=speedY;	
-			}
-		}
+//		public function step():void
+//		{
+//			if(isActive)
+//			{
+//				mc.x+=speedX;
+//				mc.y+=speedY;	
+//			}
+//		}
 
 		
 		public function activate(myX:Number,myY:Number,type:int=0) :void
@@ -57,15 +55,9 @@ package
 		{
 			isActive=false;
 			isReady=false;
-			_hit();
-		}
-		
-		
-		private function _hit():void
-		{
-			//サブクラスで、実際の挙動は実装
 			mc.gotoAndPlay("lhit");
 		}
+		
 		
 		public function sleep() :void
 		{
@@ -91,8 +83,37 @@ package
 		
 		//追加
 		
-		public function circleHitTest(targetX:Number,targetY:Number,targetRadius:Number):Boolean
+//		public function circleHitTest(targetX:Number,targetY:Number,targetRadius:Number):Boolean
+//		{
+//			
+//			//引数
+//			var _bool:Boolean;
+//			var _val1:Number = (targetX - mc.x) * (targetX - mc.x) + (targetY -mc.y) * (targetY - mc.y);
+//			var _val2:Number = (targetRadius + radius) * (targetRadius + radius);
+//			
+//			
+//			if (_val1 <= _val2)
+//			{
+//				_bool=true;
+//			}
+//			else
+//			{
+//				_bool=false;
+//			}
+//			
+//			return _bool;
+//			
+//			
+//		}
+		
+		public function circleHitTest(stats:GameItemStatus):Boolean
 		{
+			
+			var targetX:Number=stats.mc.x;
+			var targetY:Number=stats.mc.y;
+			var targetRadius:Number=stats.radius;
+			
+			
 			//引数
 			var _bool:Boolean;
 			var _val1:Number = (targetX - mc.x) * (targetX - mc.x) + (targetY -mc.y) * (targetY - mc.y);
@@ -112,6 +133,7 @@ package
 			
 			
 		}
+		
 		/*===========================================*/
 		//ここまで　　super
 		/*===========================================*/

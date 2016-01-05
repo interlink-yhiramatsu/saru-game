@@ -16,8 +16,11 @@ package
 		private const TAMA_DIFF_B_X:Number=-8;
 		private const TAMA_DIFF_B_Y:Number=8;
 		
+		private var speedX:Number=0;
+		private var speedY:Number=0;
+		
 		//Canvas特有
-		private var stats:GameItemStas;
+		public var gameItemStatus:GameItemStatus;
 		public var mc:MovieClip;
 		/*===========================================*/
 		//ここまで　　HeroTama特有
@@ -26,8 +29,8 @@ package
 		public function HeroTama()
 		{
 			mc=new TamaVisual();
-			stats=new GameItemStas(mc);
-			
+			gameItemStatus=new GameItemStatus(mc);
+			gameItemStatus.radius=5;
 		}
 		
 		/*===========================================*/
@@ -38,13 +41,19 @@ package
 		{
 			if(type==0)
 			{
-				stats.activate(myX+TAMA_DIFF_A_X,myY+TAMA_DIFF_A_Y);
-				stats.speedX=HERO_TAMA_SPEED;
+				gameItemStatus.activate(myX+TAMA_DIFF_A_X,myY+TAMA_DIFF_A_Y);
+				speedX=HERO_TAMA_SPEED;
 			}else if(type==1)
 			{
-				stats.activate(myX+TAMA_DIFF_B_X,myY+TAMA_DIFF_B_Y);
-				stats.speedX=-HERO_TAMA_SPEED;
+				gameItemStatus.activate(myX+TAMA_DIFF_B_X,myY+TAMA_DIFF_B_Y);
+				speedX=-HERO_TAMA_SPEED;
 			}
+		}
+		
+		private function _step():void
+		{
+			mc.x+=speedX;
+			mc.y+=speedY;	
 		}
 		
 		/*===========================================*/
@@ -62,35 +71,39 @@ package
 		
 		public function sleep() :void
 		{
-			stats.sleep();
+			gameItemStatus.sleep();
 		}
 		
-		public function get isActive():Boolean
+		public function getIsActive():Boolean
 		{
-			return stats.isActive;
+			return gameItemStatus.isActive;
 		}
-
-		public function get isReady():Boolean
+		
+		public function getIsReady():Boolean
 		{
-			return stats.isReady;
+			return gameItemStatus.isReady;
 		}
 		public function hit() :void
 		{
-			stats.hit();
+			gameItemStatus.hit();
 		}
+		
 		public function step():void
 		{
-			stats.step();
+			if(gameItemStatus.isActive)
+			{
+				_step();
+			}
 		}
 		
 		public function outTest(w:Number,h:Number):Boolean
 		{
-			return stats.outTest(w,h);
+			return gameItemStatus.outTest(w,h);
 		}
 		
-		public function circleHitTest(x:Number,y:Number,radius:Number):Boolean
+		public function circleHitTest(targetStats:GameItemStatus):Boolean
 		{
-			return stats.circleHitTest(x,y,radius);
+			return gameItemStatus.circleHitTest(targetStats);
 		}
 		
 		/*===========================================*/

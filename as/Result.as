@@ -6,7 +6,7 @@ package
 	
 	import a24.tween.Tween24;
 	
-	public class Result extends MovieClip implements IScene
+	public class Result extends MovieClip
 	{
 		
 		private var _btReplay:MovieClip;
