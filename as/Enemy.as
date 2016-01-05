@@ -32,8 +32,8 @@ package
 		{
 			_traceTarget=traceTarget;
 			mc=new HitsujiVisual();
-			gameItemStatus=new GameItemStatus(mc);
-			gameItemStatus.radius=20;
+			gameItemStatus=new GameItemStatus(mc,25);
+			
 			
 		}
 		
@@ -129,12 +129,12 @@ package
 		
 		public function getIsActive():Boolean
 		{
-			return gameItemStatus.isActive;
+			return gameItemStatus.getIsActive();
 		}
 		
 		public function getIsReady():Boolean
 		{
-			return gameItemStatus.isReady;
+			return gameItemStatus.getIsReady();
 		}
 		public function hit() :void
 		{
@@ -143,7 +143,7 @@ package
 		
 		public function step():void
 		{
-			if(gameItemStatus.isActive)
+			if(gameItemStatus.getIsActive())
 			{
 				_step();
 			}

@@ -16,8 +16,8 @@ package
 		private const TAMA_DIFF_B_X:Number=-8;
 		private const TAMA_DIFF_B_Y:Number=8;
 		
-		private var speedX:Number=0;
-		private var speedY:Number=0;
+		private var _speedX:Number=0;
+		private var _speedY:Number=0;
 		
 		//Canvas特有
 		public var gameItemStatus:GameItemStatus;
@@ -29,8 +29,8 @@ package
 		public function HeroTama()
 		{
 			mc=new TamaVisual();
-			gameItemStatus=new GameItemStatus(mc);
-			gameItemStatus.radius=5;
+			gameItemStatus=new GameItemStatus(mc,5);
+		
 		}
 		
 		/*===========================================*/
@@ -42,18 +42,18 @@ package
 			if(type==0)
 			{
 				gameItemStatus.activate(myX+TAMA_DIFF_A_X,myY+TAMA_DIFF_A_Y);
-				speedX=HERO_TAMA_SPEED;
+				_speedX=HERO_TAMA_SPEED;
 			}else if(type==1)
 			{
 				gameItemStatus.activate(myX+TAMA_DIFF_B_X,myY+TAMA_DIFF_B_Y);
-				speedX=-HERO_TAMA_SPEED;
+				_speedX=-HERO_TAMA_SPEED;
 			}
 		}
 		
 		private function _step():void
 		{
-			mc.x+=speedX;
-			mc.y+=speedY;	
+			mc.x+=_speedX;
+			mc.y+=_speedY;	
 		}
 		
 		/*===========================================*/
@@ -66,7 +66,7 @@ package
 		
 //		public function activate(myX:Number,myY:Number,type:int=0) :void
 //		{
-//			stats.activate(myX,myY,type);
+//			gameItemStatus.activate(myX,myY,type);
 //		}
 		
 		public function sleep() :void
@@ -76,12 +76,12 @@ package
 		
 		public function getIsActive():Boolean
 		{
-			return gameItemStatus.isActive;
+			return gameItemStatus.getIsActive();
 		}
 		
 		public function getIsReady():Boolean
 		{
-			return gameItemStatus.isReady;
+			return gameItemStatus.getIsReady();
 		}
 		public function hit() :void
 		{
@@ -90,7 +90,7 @@ package
 		
 		public function step():void
 		{
-			if(gameItemStatus.isActive)
+			if(gameItemStatus.getIsActive())
 			{
 				_step();
 			}
