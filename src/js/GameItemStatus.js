@@ -6,9 +6,13 @@ saru.GameItemStatus = function(targetMC, radius)
 
     var mc;
 
+    mc = targetMC;
+    _radius = radius;
+    mc.addEventListener(saru.Const.VISUAL_HIT_ANIM_END, _onReset);
 
     //Canvasのみ追記
     var _this = {
+        mc: mc,
         getIsActive: getIsActive,
         getIsReady: getIsReady,
         getRadius: getRadius,
@@ -18,10 +22,6 @@ saru.GameItemStatus = function(targetMC, radius)
         outTest: outTest,
         circleHitTest: circleHitTest
     }
-
-    mc = targetMC;
-    _radius = radius;
-    mc.addEventListener(saru.Const.VISUAL_HIT_ANIM_END, _onReset);
 
 
     function _onReset(e)
@@ -93,7 +93,7 @@ saru.GameItemStatus = function(targetMC, radius)
 
         var targetX = currentStatus.mc.x;
         var targetY = currentStatus.mc.y;
-        var targetRadius = currentStatus._radius;
+        var targetRadius = currentStatus.getRadius();
 
 
         //引数

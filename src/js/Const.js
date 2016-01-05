@@ -1,7 +1,7 @@
 var saru = {};
 saru.Const = {};
 
-saru.Const.DEBUG = false;
+
 saru.Const.VERSION = "2016.01.05:1.0";
 saru.Const.AUTHOR = "higeguma";
 
@@ -33,3 +33,11 @@ saru.Const.MAKU_CHANGE = "makuChange";
 saru.Const.MAKU_END = "makuEnd";
 saru.Const.VISUAL_HIT_ANIM_END = "visualHitAnimEnd";
 saru.Const.HERO_HIT_ANIM_END = "heroHitAnimEnd";
+
+
+saru.Const.TYPE_DEF = "typeDef";
+saru.Const.TYPE_KAMIKAZE = "typeKamikaze";
+saru.Const.TYPE_SHOURYU = "typeShouryu";
+saru.Const.TYPE_MISSILE = "typeMissile";
+saru.Const.TYPE_FUWAFUWA_X = "typeFuwafuwaX";
+saru.Const.TYPE_FUWAFUWA_Y = "typeFuwafuwaY";

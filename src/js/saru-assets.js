@@ -1107,7 +1107,7 @@ if (loop == null) { loop = false; }	this.initialize(mode,startPosition,loop,{"ld
 	}
 	this.frame_39 = function() {
 		this.stop();
-		this.dispatchEvent(new Event(Const.HERO_HIT_ANIM_END));
+		this.dispatchEvent(new Event("heroHitAnimEnd"));
 	}
 
 	// actions tween:

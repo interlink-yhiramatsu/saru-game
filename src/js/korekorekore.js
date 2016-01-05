@@ -3,16 +3,16 @@
 saru.GameItemStatus
 
 
-    var _this = {
-        getIsActive: getIsActive,
-        getIsReady: getIsReady,
-        getRadius: getRadius,
-        activate: activate,
-        hit: hit,
-        sleep: sleep,
-        outTest: outTest,
-        circleHitTest: circleHitTest
-    }
+var _this = {
+    getIsActive: getIsActive,
+    getIsReady: getIsReady,
+    getRadius: getRadius,
+    activate: activate,
+    hit: hit,
+    sleep: sleep,
+    outTest: outTest,
+    circleHitTest: circleHitTest
+}
 
 
 
@@ -21,14 +21,22 @@ saru.GameItemStatus
 saru.Enemy
     //=========
 
-        var _this = {
-        getIsActive: getIsActive,
-        getIsReady: getIsReady,
-        getRadius: getRadius,
-        activate: activate,
-        hit: hit,
-        sleep: sleep,
-        outTest: outTest,
-        circleHitTest: circleHitTest,
-        spawn:spawn
-    }
+var _this = {
+    getIsActive: getIsActive,
+    getIsReady: getIsReady,
+    getRadius: getRadius,
+    activate: activate,
+    hit: hit,
+    sleep: sleep,
+    outTest: outTest,
+    circleHitTest: circleHitTest,
+    spawn: spawn
+}
+
+var _this = {
+
+    container: container,
+    start: start,
+    end: end,
+    getScore: getScore
+}

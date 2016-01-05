@@ -17,15 +17,7 @@ saru.HeroTama = function()
     var gameItemStatus;
     var mc;
 
-    var _this = {
-        getIsActive: getIsActive,
-        getIsReady: getIsReady,
-        activate: activate,
-        hit: hit,
-        sleep: sleep,
-        outTest: outTest,
-        circleHitTest: circleHitTest
-    }
+
 
 
     /*===========================================*/
@@ -36,7 +28,18 @@ saru.HeroTama = function()
     mc = new saru_assets.TamaVisual();
     gameItemStatus = saru.GameItemStatus(mc, 5);
 
-
+     var _this = {
+    	mc: mc,
+        gameItemStatus: gameItemStatus,
+        step:step,
+        getIsActive: getIsActive,
+        getIsReady: getIsReady,
+        activate: activate,
+        hit: hit,
+        sleep: sleep,
+        outTest: outTest,
+        circleHitTest: circleHitTest
+    }
 
 
     /*===========================================*/

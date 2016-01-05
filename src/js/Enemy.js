@@ -14,12 +14,8 @@ saru.Enemy = function(traceTarget)
     var _enemyType;
 
     var _traceTarget;
-    TYPE_DEF = "typeDef";
-    TYPE_KAMIKAZE = "typeKamikaze";
-    TYPE_SHOURYU = "typeShouryu";
-    TYPE_MISSILE = "typeMissile";
-    TYPE_FUWAFUWA_X = "typeFuwafuwaX";
-    TYPE_FUWAFUWA_Y = "typeFuwafuwaY";
+
+
     /*===========================================*/
     //ここまで　　Enemy特有
     /*===========================================*/
@@ -30,7 +26,20 @@ saru.Enemy = function(traceTarget)
     var mc;
 
 
+
+
+
+    _traceTarget = traceTarget;
+    //createjsのコード
+    mc = new saru_assets.HitsujiVisual();
+    //createjsのコード
+    gameItemStatus = saru.GameItemStatus(mc, 25);
+
+
     var _this = {
+        mc: mc,
+        gameItemStatus: gameItemStatus,
+        step:step,
         getIsActive: getIsActive,
         getIsReady: getIsReady,
         activate: activate,
@@ -41,29 +50,22 @@ saru.Enemy = function(traceTarget)
         spawn: spawn
     }
 
-
-    _traceTarget = traceTarget;
-    //createjsのコード
-    mc = new saru_assets.HitsujiVisual();
-    //createjsのコード
-    gameItemStatus = saru.GameItemStatus(mc, 25);
-
-
-
-
     //override 
 
     function _step()
     {
+
         var _oldX = mc.x;
         var _oldY = mc.y;
 
-        if (_enemyType == TYPE_DEF)
+
+
+        if (_enemyType == saru.Const.TYPE_DEF)
         {
             mc.x += _speed;
 
         }
-        else if (_enemyType == TYPE_KAMIKAZE)
+        else if (_enemyType == saru.Const.TYPE_KAMIKAZE)
         {
             mc.x += (_terminalX - mc.x) / 15;
             mc.y += (_terminalY - mc.y) / 15;
@@ -87,7 +89,7 @@ saru.Enemy = function(traceTarget)
 
 
         }
-        else if (_enemyType == TYPE_MISSILE)
+        else if (_enemyType == saru.Const.TYPE_MISSILE)
         {
             mc.x += (_traceTarget.x - mc.x) / 30;
             mc.y += (_traceTarget.y - mc.y) / 30;
@@ -96,7 +98,7 @@ saru.Enemy = function(traceTarget)
 
 
         }
-        else if (_enemyType == TYPE_SHOURYU)
+        else if (_enemyType == saru.Const.TYPE_SHOURYU)
         {
             mc.x += 5;
             mc.y += -5;
@@ -105,7 +107,7 @@ saru.Enemy = function(traceTarget)
             mc.rotation = _getRot(mc.x - _oldX, mc.y - _oldY);
 
         }
-        else if (_enemyType == TYPE_FUWAFUWA_X)
+        else if (_enemyType == saru.Const.TYPE_FUWAFUWA_X)
         {
             mc.x += (_traceTarget.x - mc.x) / (saru.Utils.getRandom(20) + 20);
             mc.y += (_terminalY - mc.y) / 30;
@@ -122,7 +124,7 @@ saru.Enemy = function(traceTarget)
             }
 
         }
-        else if (_enemyType == TYPE_FUWAFUWA_Y)
+        else if (_enemyType == saru.Const.TYPE_FUWAFUWA_Y)
         {
             mc.x += (_terminalX - mc.x) / 30;
             mc.y += (_traceTarget.y - mc.y) / (saru.Utils.getRandom(20) + 20);
@@ -139,6 +141,9 @@ saru.Enemy = function(traceTarget)
                 mc.scaleY = 1;
             }
 
+        }else
+        {
+        	// console.log("これははずれ");
         }
 
 
@@ -153,6 +158,8 @@ saru.Enemy = function(traceTarget)
 
     function spawn(myX, myY, type, terminalX, terminalY)
     {
+
+
         activate(myX, myY);
         _enemyType = type;
         _terminalX = terminalX;

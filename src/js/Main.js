@@ -41,26 +41,36 @@
 
 
 
+    var _this = {
+
+        container: container,
+        start: start,
+        end: end,
+        getScore: getScore
+    }
+
+
     function _init()
     {
         //最初の一回だけでの処理を記載
 
         //インスタンスを先に生成
-        container = new Sprite();
+        container = new createjs.Container();
         container.visible = false;
 
         //自分
-        _hero = new Hero();
+        _hero = saru.Hero();
         _hero.mc.addEventListener(saru.Const.HERO_HIT_ANIM_END, _onHeroHitAnimEnd);
 
 
 
-        var _bg = new BG();
+        var _bg = new saru_assets.BG();
         container.addChild(_bg);
 
         for (var i = 0; i < MAX_ENEMY; i++)
         {
-            var _currentEnemy = new Enemy(_hero.mc);
+            var _currentEnemy = saru.Enemy(_hero.mc);
+
             container.addChild(_currentEnemy.mc);
             _enemyList.push(_currentEnemy);
         }
@@ -68,7 +78,7 @@
 
         for (var k = 0; k < MAX_HERO_TAMA; k++)
         {
-            var _currentHeroTama = new HeroTama();
+            var _currentHeroTama = saru.HeroTama();
             container.addChild(_currentHeroTama.mc);
             _heroTamaList.push(_currentHeroTama);
         }
@@ -76,7 +86,7 @@
         //自分
         container.addChild(_hero.mc);
 
-        _timeBar = new TimeBar();
+        _timeBar = new saru_assets.TimeBar();
         container.addChild(_timeBar);
 
     }
@@ -97,9 +107,12 @@
         _score = 0;
 
         //タイマーをリスタート
-        _enemyProduceTimer = new Timer(saru.Const.ENEMY_PRODUCE_TIME);
-        _enemyProduceTimer.addEventListener(TimerEvent.TIMER, _timerHandler);
-        _enemyProduceTimer.start();
+        _enemyProduceTimer = setInterval(_timerHandler, saru.Const.ENEMY_PRODUCE_TIME);
+
+
+        // _enemyProduceTimer = new Timer(saru.Const.ENEMY_PRODUCE_TIME);
+        // _enemyProduceTimer.addEventListener(TimerEvent.TIMER, _timerHandler);
+        // _enemyProduceTimer.start();
 
         //時間制限
         _currentTime = GAME_TIME;
@@ -124,9 +137,11 @@
 
 
         //イベント追加
-        container.addEventListener(Event.ENTER_FRAME, _step);
-        container.addEventListener(MouseEvent.MOUSE_DOWN, _mouseDownHandler);
-        container.addEventListener(MouseEvent.MOUSE_UP, _mouseUpHandler);
+        //container.addEventListener(Event.ENTER_FRAME, _step);
+        createjs.Ticker.addEventListener("tick", _step);
+
+        container.stage.addEventListener("stagemousedown", _mouseDownHandler);
+        container.stage.addEventListener("stagemouseup", _mouseUpHandler);
 
         //この画面を表示
         container.visible = true;
@@ -136,6 +151,7 @@
 
     function _mouseDownHandler(e)
     {
+    	
         _heroShot(_hero.mc.x, _hero.mc.y);
         _isShot = true;
     }
@@ -157,7 +173,7 @@
             if (_currentHeroTama.getIsReady() == true)
             {
 
-                if (Utils.getRandom(2) == 0)
+                if (saru.Utils.getRandom(2) == 0)
                 {
                     _currentHeroTama.activate(myX, myY, 0);
                 }
@@ -182,40 +198,40 @@
             if (_currentEnemy.getIsReady() == true)
             {
 
-                var ran = Utils.getRandom(6);
+                var ran = saru.Utils.getRandom(6);
 
 
                 if (ran == 0)
                 {
 
-                    _currentEnemy.spawn(-10, Utils.getRandom(saru.Const.HEIGHT), Enemy.TYPE_DEF);
+                    _currentEnemy.spawn(-10, saru.Utils.getRandom(saru.Const.HEIGHT), saru.Const.TYPE_DEF);
 
                 }
                 else if (ran == 1)
                 {
-                    _currentEnemy.spawn(saru.Const.WIDTH + 10, Utils.getRandom(saru.Const.HEIGHT), Enemy.TYPE_KAMIKAZE, _hero.mc.x, _hero.mc.y);
+                    _currentEnemy.spawn(saru.Const.WIDTH + 10, saru.Utils.getRandom(saru.Const.HEIGHT), saru.Const.TYPE_KAMIKAZE, _hero.mc.x, _hero.mc.y);
 
 
                 }
                 else if (ran == 2)
                 {
-                    _currentEnemy.spawn(-10, Utils.getRandom(saru.Const.HEIGHT), Enemy.TYPE_MISSILE);
+                    _currentEnemy.spawn(-10, saru.Utils.getRandom(saru.Const.HEIGHT), saru.Const.TYPE_MISSILE);
 
 
                 }
                 else if (ran == 3)
                 {
-                    _currentEnemy.spawn(Utils.getRandom(saru.Const.WIDTH), saru.Const.HEIGHT + 10, Enemy.TYPE_SHOURYU);
+                    _currentEnemy.spawn(saru.Utils.getRandom(saru.Const.WIDTH), saru.Const.HEIGHT + 10, saru.Const.TYPE_SHOURYU);
 
                 }
                 else if (ran == 4)
                 {
-                    _currentEnemy.spawn(Utils.getRandom(saru.Const.WIDTH), -10, Enemy.TYPE_FUWAFUWA_X, _hero.mc.x, _hero.mc.y);
+                    _currentEnemy.spawn(saru.Utils.getRandom(saru.Const.WIDTH), -10, saru.Const.TYPE_FUWAFUWA_X, _hero.mc.x, _hero.mc.y);
 
                 }
                 else if (ran == 5)
                 {
-                    _currentEnemy.spawn(saru.Const.WIDTH + 10, Utils.getRandom(saru.Const.HEIGHT), Enemy.TYPE_FUWAFUWA_X, _hero.mc.x, _hero.mc.y);
+                    _currentEnemy.spawn(saru.Const.WIDTH + 10, saru.Utils.getRandom(saru.Const.HEIGHT), saru.Const.TYPE_FUWAFUWA_X, _hero.mc.x, _hero.mc.y);
 
                 }
 
@@ -229,6 +245,8 @@
 
     function _timerHandler(e)
     {
+
+
         //後半は増える
         if (_currentTime > GAME_TIME * 0.8)
         {
@@ -352,12 +370,17 @@
                 }
             }
         }
+
+
+        
+
     }
 
 
 
     function __step(item, index, array)
     {
+
         item.step();
     }
 
@@ -389,13 +412,19 @@
     function _onEnd()
     {
         //タイマーをストップ
-        _enemyProduceTimer.stop();
-        _enemyProduceTimer.removeEventListener(TimerEvent.TIMER, _timerHandler);
+        // _enemyProduceTimer.stop();
+        // _enemyProduceTimer.removeEventListener(TimerEvent.TIMER, _timerHandler);
+
+        clearInterval(_enemyProduceTimer);
 
         //イベント削除
-        container.removeEventListener(Event.ENTER_FRAME, _step);
-        container.removeEventListener(MouseEvent.MOUSE_DOWN, _mouseDownHandler);
-        container.removeEventListener(MouseEvent.MOUSE_UP, _mouseUpHandler);
+        //container.removeEventListener(Event.ENTER_FRAME, _step);
+
+        createjs.Ticker.removeEventListener("tick", _step);
+
+
+        container.stage.removeEventListener("stagemousedown", _mouseDownHandler);
+        container.stage.removeEventListener("stagemouseup", _mouseUpHandler);
 
 
     }
@@ -423,5 +452,8 @@
     {
         return _score;
     }
+
+
+    return _this;
 
 }
