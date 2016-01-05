@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>サルゲー</title>
+
+<script src="src/libs/easeljs-0.8.1.min.js"></script>
+<script src="src/libs/tweenjs-0.6.1.min.js"></script>
+<script src="src/libs/movieclip-0.8.1.min.js"></script>
+<script src="src/libs/preloadjs-0.6.1.min.js"></script>
+<script src="src/js/saru-assets.js"></script>
+
+<script>
+var canvas, stage, exportRoot;
+
+function init() {
+	canvas = document.getElementById("canvas");
+	saru_images = saru_images||{};
+	ss = ss||{};
+
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+loader.loadFile({src:"src/images/saru_assets_atlas_.json", type:"spritesheet", id:"saru_assets_atlas_"}, true);
+	loader.loadManifest(saru_assets.properties.manifest);
+}
+
+function handleFileLoad(evt) {
+	if (evt.item.type == "image") { saru_images[evt.item.id] = evt.result; }
+}
+
+function handleComplete(evt) {
+	var queue = evt.target;
+	ss["saru_assets_atlas_"] = queue.getResult("saru_assets_atlas_");
+	exportRoot = new saru_assets.saruAssets();
+
+	stage = new createjs.Stage(canvas);
+	stage.addChild(exportRoot);
+	stage.update();
+
+	createjs.Ticker.setFPS(saru_assets.properties.fps);
+	createjs.Ticker.addEventListener("tick", stage);
+}
+</script>
+</head>
+
+<body onload="init();" style="background-color:#D4D4D4">
+	<canvas id="canvas" width="700" height="450" style="background-color:#FFFFFF"></canvas>
+</body>
+</html>
