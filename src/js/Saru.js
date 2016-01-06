@@ -105,7 +105,7 @@
         {
             _main.end();
             _result.start();
-            _result.showScore(_main.score);
+            _result.showScore(_main.getScore());
             _sceneStatus = 2;
         }
         else if (_sceneStatus == 2)

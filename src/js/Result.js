@@ -29,14 +29,15 @@ saru.Result = function()
     {
         _currentScore = score;
 
+
         //けた揃えして、MCを動かす
         if (_currentScore > 999) _currentScore = 999;
         var _scoreStr = ("00" + _currentScore).slice(-3);
 
         //trace(_scoreStr);
-        container["suji_0"].gotoAndStop(Number(_scoreStr.charAt(0)) + 1);
-        container["suji_1"].gotoAndStop(Number(_scoreStr.charAt(1)) + 1);
-        container["suji_2"].gotoAndStop(Number(_scoreStr.charAt(2)) + 1);
+        container["suji_0"].gotoAndStop(Number(_scoreStr.charAt(0)));
+        container["suji_1"].gotoAndStop(Number(_scoreStr.charAt(1)));
+        container["suji_2"].gotoAndStop(Number(_scoreStr.charAt(2)));
 
         container.visible = true;
 

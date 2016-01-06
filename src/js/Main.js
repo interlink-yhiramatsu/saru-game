@@ -86,9 +86,20 @@
         //自分
         container.addChild(_hero.mc);
 
-        _timeBar = new saru_assets.TimeBar();
-        container.addChild(_timeBar);
 
+        //時間バー
+        var _timeBarBase = saru.Utils.kukei(700, 6, "#006B52", 0);
+        container.addChild(_timeBarBase);
+
+        var _timeContainer = new createjs.Container();
+
+        _timeBar = saru.Utils.kukei(700, 6, "#B9CC20", 0);
+
+        container.addChild(_timeContainer);
+        _timeContainer.addChild(_timeBar);
+
+        _timeBarBase.y=444;
+        _timeContainer.y=444;
     }
 
     /**
@@ -116,7 +127,7 @@
 
         //時間制限
         _currentTime = GAME_TIME;
-        _timeBar["time_bar"].scaleX = 1;
+        _timeBar.scaleX = 1;
 
         //インスタンスの状態を初期化
 
@@ -151,7 +162,7 @@
 
     function _mouseDownHandler(e)
     {
-    	
+
         _heroShot(_hero.mc.x, _hero.mc.y);
         _isShot = true;
     }
@@ -310,7 +321,7 @@
         }
         else
         {
-            _timeBar["time_bar"].scaleX = (_currentTime / GAME_TIME);
+            _timeBar.scaleX = (_currentTime / GAME_TIME);
         }
 
         /*最初にまとめて移動*/
@@ -372,7 +383,7 @@
         }
 
 
-        
+
 
     }
 
