@@ -66,6 +66,7 @@
 
         var _bg = new saru_assets.BG();
         container.addChild(_bg);
+        _bg.casche(0,0,saru.Const.WIDTH,saru.Const.HEIGHT);
 
         for (var i = 0; i < MAX_ENEMY; i++)
         {
