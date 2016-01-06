@@ -1,0 +1,17 @@
+html
+{
+	background-color:#016b51;
+}
+
+body
+{
+	/*width: 700px;
+	height:450px;*/
+	width: 1000px;
+	height:660px;
+	background-image: url(../images/bg.jpg);
+	background-repeat:none;
+	margin:0 auto;
+	padding-top: 115px;
+
+}
