@@ -98,8 +98,8 @@
         container.addChild(_timeContainer);
         _timeContainer.addChild(_timeBar);
 
-        _timeBarBase.y=444;
-        _timeContainer.y=444;
+        _timeBarBase.y = 444;
+        _timeContainer.y = 444;
     }
 
     /**
@@ -121,17 +121,12 @@
         _enemyProduceTimer = setInterval(_timerHandler, saru.Const.ENEMY_PRODUCE_TIME);
 
 
-        // _enemyProduceTimer = new Timer(saru.Const.ENEMY_PRODUCE_TIME);
-        // _enemyProduceTimer.addEventListener(TimerEvent.TIMER, _timerHandler);
-        // _enemyProduceTimer.start();
-
         //時間制限
         _currentTime = GAME_TIME;
         _timeBar.scaleX = 1;
 
         //インスタンスの状態を初期化
 
-        //			_hero.reset(saru.Const.WIDTH/2,saru.Const.HEIGHT/2);
         _hero.reset(0, saru.Const.HEIGHT / 2);
 
         for (var i = 0; i < MAX_ENEMY; i++)
@@ -148,7 +143,6 @@
 
 
         //イベント追加
-        //container.addEventListener(Event.ENTER_FRAME, _step);
         createjs.Ticker.addEventListener("tick", _step);
 
         container.stage.addEventListener("stagemousedown", _mouseDownHandler);
@@ -423,13 +417,10 @@
     function _onEnd()
     {
         //タイマーをストップ
-        // _enemyProduceTimer.stop();
-        // _enemyProduceTimer.removeEventListener(TimerEvent.TIMER, _timerHandler);
 
         clearInterval(_enemyProduceTimer);
 
         //イベント削除
-        //container.removeEventListener(Event.ENTER_FRAME, _step);
 
         createjs.Ticker.removeEventListener("tick", _step);
 

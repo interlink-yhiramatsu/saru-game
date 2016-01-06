@@ -8,7 +8,6 @@
 
     var _sceneStatus = 0;
 
-    //Canvas特有
     var _stage;
     var _canvas;
 

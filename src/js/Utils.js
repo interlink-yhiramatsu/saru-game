@@ -19,7 +19,8 @@ saru.Utils.kukei = function(width, height, fillColor, senHaba, senColor)
         g.beginFill(fillColor);
         g.drawRect(senHaba, senHaba, width - senHaba * 2, height - senHaba * 2);
 
-    }else
+    }
+    else
     {
         g.beginFill(fillColor);
         g.drawRect(0, 0, width, height);

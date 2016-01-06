@@ -2,7 +2,7 @@
 {
     var TICK = 4;
 
-    //Canvas特有
+
     var gameItemStatus;
     var mc;
 
@@ -17,7 +17,7 @@
     var _this = {
         mc: mc,
         gameItemStatus: gameItemStatus,
-        step:step,
+        step: step,
         getIsActive: getIsActive,
         getIsReady: getIsReady,
         activate: activate,
@@ -28,9 +28,6 @@
         reset: reset
     }
 
-    /*===========================================*/
-    //ここから　　override
-    /*===========================================*/
 
     function reset(myX, myY)
     {
@@ -45,11 +42,6 @@
         mc.x += (mc.stage.mouseX - mc.x) / TICK;
         mc.y += (mc.stage.mouseY - mc.y) / TICK;
     }
-
-    /*===========================================*/
-    //ここまで　　override
-    /*===========================================*/
-
 
     /*===========================================*/
     //ここからは共通
@@ -95,7 +87,7 @@
 
     function circleHitTest(targetStats)
     {
-    	
+
         return gameItemStatus.circleHitTest(targetStats);
     }
 

@@ -8,8 +8,6 @@ saru.Pre = function()
     _btStart = container["start_bt"];
     _btStart.buttonMode = true;
     _btStart.addEventListener("click", _clickHandler);
-    // _btStart.addEventListener(MouseEvent.ROLL_OVER, _overHandler);
-    // _btStart.addEventListener(MouseEvent.ROLL_OUT, _outHandler);
 
     var _this = {
         container: container,
@@ -21,17 +19,6 @@ saru.Pre = function()
     {
         container.dispatchEvent(new Event(saru.Const.PRE_START_BT_CLICK)); //イベントを発信
     }
-
-    // function _overHandler(e)
-    // {
-    //     Tween24.tween(_btStart, 0.2).bright(1.5).play();
-    // }
-
-    // function _outHandler(e)
-    // {
-    //     Tween24.tween(_btStart, 0.1).bright(0).play();
-    // }
-
 
     /**
      * 画面を表示する

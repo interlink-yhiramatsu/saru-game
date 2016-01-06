@@ -1,9 +1,6 @@
 saru.HeroTama = function()
 {
 
-    /*===========================================*/
-    //ここから　　HeroTama特有
-    /*===========================================*/
     var HERO_TAMA_SPEED = saru.Const.HERO_TAMA_SPEED;
     var TAMA_DIFF_A_X = 35;
     var TAMA_DIFF_A_Y = -11;
@@ -18,20 +15,13 @@ saru.HeroTama = function()
     var mc;
 
 
-
-
-    /*===========================================*/
-    //ここまで　　HeroTama特有
-    /*===========================================*/
-
-
     mc = new saru_assets.TamaVisual();
     gameItemStatus = saru.GameItemStatus(mc, 5);
 
-     var _this = {
-    	mc: mc,
+    var _this = {
+        mc: mc,
         gameItemStatus: gameItemStatus,
-        step:step,
+        step: step,
         getIsActive: getIsActive,
         getIsReady: getIsReady,
         activate: activate,
@@ -42,9 +32,6 @@ saru.HeroTama = function()
     }
 
 
-    /*===========================================*/
-    //ここから　　override
-    /*===========================================*/
 
     function activate(myX, myY, type)
     {
@@ -66,13 +53,6 @@ saru.HeroTama = function()
         mc.y += _speedY;
     }
 
-    /*===========================================*/
-    //ここまで　　override
-    /*===========================================*/
-
-    /*===========================================*/
-    //ここからは共通
-    /*===========================================*/
 
     //		 function activate(myX,myY,type=0) :void
     //		{
@@ -117,9 +97,6 @@ saru.HeroTama = function()
         return gameItemStatus.circleHitTest(targetStatus);
     }
 
-    /*===========================================*/
-    //ここまでは共通
-    /*===========================================*/
 
     //このthisをインスタンス風に使えるよ
     return _this;

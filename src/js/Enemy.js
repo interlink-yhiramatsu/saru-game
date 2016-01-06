@@ -1,32 +1,15 @@
 saru.Enemy = function(traceTarget)
 {
 
-    /*===========================================*/
-    //ここから　　Enemy特有
-    /*===========================================*/
 
     var _speed = 10;
-
     var _terminalX;
-
     var _terminalY;
-
     var _enemyType;
-
     var _traceTarget;
-
-
-    /*===========================================*/
-    //ここまで　　Enemy特有
-    /*===========================================*/
-
-    //Canvas特有
 
     var gameItemStatus;
     var mc;
-
-
-
 
 
     _traceTarget = traceTarget;
@@ -35,11 +18,10 @@ saru.Enemy = function(traceTarget)
     //createjsのコード
     gameItemStatus = saru.GameItemStatus(mc, 25);
 
-
     var _this = {
         mc: mc,
         gameItemStatus: gameItemStatus,
-        step:step,
+        step: step,
         getIsActive: getIsActive,
         getIsReady: getIsReady,
         activate: activate,
@@ -50,7 +32,7 @@ saru.Enemy = function(traceTarget)
         spawn: spawn
     }
 
-    //override 
+
 
     function _step()
     {
@@ -141,9 +123,10 @@ saru.Enemy = function(traceTarget)
                 mc.scaleY = 1;
             }
 
-        }else
+        }
+        else
         {
-        	// console.log("これははずれ");
+
         }
 
 
