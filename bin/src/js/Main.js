@@ -66,7 +66,7 @@
 
         var _bg = new saru_assets.BG();
         container.addChild(_bg);
-        _bg.casche(0,0,saru.Const.WIDTH,saru.Const.HEIGHT);
+        //_bg.casche(0, 0, saru.Const.WIDTH, saru.Const.HEIGHT);
 
         for (var i = 0; i < MAX_ENEMY; i++)
         {
@@ -146,8 +146,17 @@
         //イベント追加
         createjs.Ticker.addEventListener("tick", _step);
 
-        container.stage.addEventListener("stagemousedown", _mouseDownHandler);
-        container.stage.addEventListener("stagemouseup", _mouseUpHandler);
+        if (saru.Const.isSP)
+        {
+            container.stage.addEventListener("pressmove", _mouseDownHandler);
+        }
+        else
+        {
+            container.stage.addEventListener("stagemousedown", _mouseDownHandler);
+            container.stage.addEventListener("stagemouseup", _mouseUpHandler);
+        }
+
+
 
         //この画面を表示
         container.visible = true;
@@ -426,8 +435,18 @@
         createjs.Ticker.removeEventListener("tick", _step);
 
 
-        container.stage.removeEventListener("stagemousedown", _mouseDownHandler);
-        container.stage.removeEventListener("stagemouseup", _mouseUpHandler);
+
+        if (saru.Const.isSP)
+        {
+            container.stage.removeEventListener("pressmove", _mouseDownHandler);
+        }
+        else
+        {
+            container.stage.removeEventListener("stagemousedown", _mouseDownHandler);
+            container.stage.removeEventListener("stagemouseup", _mouseUpHandler);
+        }
+
+
 
 
     }

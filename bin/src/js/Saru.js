@@ -47,7 +47,10 @@
         exportRoot = new saru_assets.saruAssets();
 
         _stage = new createjs.Stage(_canvas);
-
+        if (saru.Const.isSP)
+        {
+            createjs.Touch.enable(_stage);
+        }
 
         createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNC;
         createjs.Ticker.setFPS(30);
@@ -57,9 +60,53 @@
         _start();
     }
 
+    function _sumahomuki()
+    {
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+
+        var currentRatio = w / h;
+        var ratio = saru.Const.WIDTH / saru.Const.HEIGHT;
+
+        //横長の時
+        if (currentRatio >= ratio)
+        {
+
+            //横長の時
+            $("canvas").css(
+            {
+                width: ((h * ratio) + "px"),
+                height: (h + "px"),
+                left: ((w - (h * ratio)) / 2 + "px"),
+                top: 0
+            });
+        }
+        else
+        {
+            //縦長の時
+            $("canvas").css(
+            {
+                width: (w + "px"),
+                height: ((w / ratio) + "px"),
+                left: 0,
+                top: ((h - (w / ratio)) / 2 + "px")
+            });
+        }
+
+
+
+
+    }
+
 
     function _start()
     {
+
+        if (saru.Const.isSP)
+        {
+            $(window).resize(_sumahomuki);
+            _sumahomuki();
+        }
 
         _pre = saru.Pre();
         _stage.addChild(_pre.container);

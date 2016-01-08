@@ -1,5 +1,11 @@
 var saru = {};
 saru.Const = {};
+
+//trueなら、スマホ
+    saru.Const.isSP = false;
+    //trueがCanvas　falseがFlash
+    saru.Const.isCanvas = true;
+
 /*ゲームの基本設定*/
 //画面のサイズ
 saru.Const.WIDTH = 700;

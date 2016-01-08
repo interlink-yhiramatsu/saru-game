@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="src/css/reset.min.css">
     <link rel="stylesheet" type="text/css" href="src/css/style.min.css">
     <script src="/js/ga.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="src/libs/easeljs-0.8.1.min.js"></script>
     <script src="src/libs/tweenjs-0.6.1.min.js"></script>
     <script src="src/libs/movieclip-0.8.1.min.js"></script>
@@ -26,8 +27,40 @@
     <script src="src/js/Result.min.js"></script>
     <script src="src/js/Saru.min.js"></script>
     <script>
+
+    //trueなら、スマホ
+    saru.Const.isSP = false;
+    //trueがCanvas　falseがFlash
+    saru.Const.isCanvas = true;
+
     window.onload = function() {
-        saru.Saru().init("stage");
+
+        //スマホなら
+        if (saru.Const.isSP) {
+            jQuery("body").css({
+                width: "auto",
+                height: "auto",
+                margin: "0",
+                backgroundImage: "none"
+            });
+
+            jQuery("#stage").css({
+                position: "absolute",
+                left: "0",
+                top: "0"
+            });
+            saru.Saru().init("stage");
+        //PCでCanvas
+        } else if (saru.Const.isCanvas) {
+            saru.Saru().init("stage");
+
+        //PCでFlasj
+        } else {
+
+            jQuery("#stage").remove();
+            jQuery("body").load("./flash.html");
+        }
+
     }
     </script>
 </head>
